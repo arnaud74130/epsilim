@@ -1,48 +1,42 @@
 == PRESENTATION
+
 Cette application web permet d'effectuer le suivi financier pour une société en mode projet. Plus spécifiquement, lorsque l'activité des chefs de projet génère les recettes. Initialement créé pour le pilotage financier du GCS EPSILIM (Groupement de Coopération Sanitaire) le logiciel est mis à disposition à la communauté opensource sous la licence GNU GPL v3.
 
 == INSTALLATION
 
-Il suffit de récupérer l'application depuis github, puis de lancer le script : 
-./instal.sh
+* Il suffit de récupérer l'application depuis github, puis de lancer le script : 
+  * ./instal.sh
 
-L'installation lance l'initialisation nécessaire pour instancier l'application rails et le logiciel de suivi.
-* Création d'un compte utilisateur:
-	login: admin
-	mdp: epsilim
+* L'installation lance l'initialisation nécessaire pour instancier l'application rails et le logiciel de suivi.
+  * Création d'un compte utilisateur:
+    * login: admin
+    * mdp: epsilim
 * Création d'un exercice comptable initial 
 * Les types de charges et recettes obligatoires (charges de PERSONNEL, RECETTE FONCTIONNEMENT, HORS_PROJET)
 
-Il suffit ensuite de lancer le serveur,
-rails s
+* Il suffit ensuite de lancer le serveur,
+  * rails s
 
 == PASSAGE EN PRODUCTION
-=begin html
-<p>
+
 L'application est une application rails, par conséquent il suffit de regarder la document de rails pour utiliser une autre base de donnée. Par défaut, et compte tenu du nombre de données nous utilisons la base par défaut (sqlite) qui évite ainsi d'installer un autre logiciel.
-</p>
-=end 
 
 * Connection sur le serveur de production
 * la première fois
 * Récupérer les fichiers via github
-exemple:
-git clone https://github.com/arnaud74130/epsilim.git
+  * exemple:
+    * git clone https://github.com/arnaud74130/epsilim.git
 * cd epsilim
   * dans le répertoire epsilim
   * arréter le serveur, récupérer le pid du process ruby et faire un kill -9
-<p>
-    ps aux | grep ruby
-    kill -9 ...	
-</p>
+    * ps aux | grep ruby
+    * kill -9 ...	
   * mettre à jour les sources
-<p>
-    git pull
-</p>
+    * git pull
   * mettre à jour la base de données
-    rake db:migrate RAILS_ENV="production"
+    * rake db:migrate RAILS_ENV="production"
   * lancer le serveur (dans l'exemple ci-dessous il est lancé sur le port 4000)
-    rails server -p 4000 -e production -d
+    * rails server -p 4000 -e production -d
 
 Note: Si vous utilisez la configuration par défaut de rails et donc sqlite et que vous avez initialisé tout votre paramétrage en dévelopement, vous pouvez simplement recopier le fichier development.sqlite3 en production.sqlite3 et le mettre sur le serveur.
 
