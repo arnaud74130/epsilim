@@ -17,10 +17,11 @@ Il suffit ensuite de lancer le serveur,
 rails s
 
 == PASSAGE EN PRODUCTION
-
+=begin html
 <p>
 L'application est une application rails, par conséquent il suffit de regarder la document de rails pour utiliser une autre base de donnée. Par défaut, et compte tenu du nombre de données nous utilisons la base par défaut (sqlite) qui évite ainsi d'installer un autre logiciel.
 </p>
+=end 
 
 * Connection sur le serveur de production
 * la première fois
