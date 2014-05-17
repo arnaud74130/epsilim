@@ -18,25 +18,30 @@ rails s
 
 == PASSAGE EN PRODUCTION
 
+<p>
 L'application est une application rails, par conséquent il suffit de regarder la document de rails pour utiliser une autre base de donnée. Par défaut, et compte tenu du nombre de données nous utilisons la base par défaut (sqlite) qui évite ainsi d'installer un autre logiciel.
-
+</p>
 
 * Connection sur le serveur de production
 * la première fois
 * Récupérer les fichiers via github
-: exemple:
-: git clone https://github.com/arnaud74130/epsilim.git
+exemple:
+git clone https://github.com/arnaud74130/epsilim.git
 * cd epsilim
-* dans le répertoire epsilim
-** arréter le serveur, récupérer le pid du process ruby et faire un kill -9
-:: ps aux | grep ruby
-:: kill -9 ...	
-** mettre à jour les sources
-:: git pull
-** mettre à jour la base de données
-:: rake db:migrate RAILS_ENV="production"
-** lancer le serveur (dans l'exemple ci-dessous il est lancé sur le port 4000)
-:: rails server -p 4000 -e production -d
+  * dans le répertoire epsilim
+  * arréter le serveur, récupérer le pid du process ruby et faire un kill -9
+<p>
+    ps aux | grep ruby
+    kill -9 ...	
+</p>
+  * mettre à jour les sources
+<p>
+    git pull
+</p>
+  * mettre à jour la base de données
+    rake db:migrate RAILS_ENV="production"
+  * lancer le serveur (dans l'exemple ci-dessous il est lancé sur le port 4000)
+    rails server -p 4000 -e production -d
 
 Note: Si vous utilisez la configuration par défaut de rails et donc sqlite et que vous avez initialisé tout votre paramétrage en dévelopement, vous pouvez simplement recopier le fichier development.sqlite3 en production.sqlite3 et le mettre sur le serveur.
 
