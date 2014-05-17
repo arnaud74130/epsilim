@@ -1,0 +1,7 @@
+0 - Lancer le script
+(Pour les utilisateurs de windows, il suffit de retaper les 3 commandes)
+ ./install.sh
+
+1- Lancer le serveur
+rails s
+
