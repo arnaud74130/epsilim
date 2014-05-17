@@ -7,7 +7,7 @@ Il suffit de récupérer l'application depuis github, puis de lancer le script :
 ./instal.sh
 
 L'installation lance l'initialisation nécessaire pour instancier l'application rails et le logiciel de suivi.
-*Création d'un compte utilisateur:
+* Création d'un compte utilisateur:
 	login: admin
 	mdp: epsilim
 * Création d'un exercice comptable initial 
