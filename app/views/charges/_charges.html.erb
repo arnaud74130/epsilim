@@ -1,0 +1,49 @@
+<div class="table-responsive">
+<div class="alert alert-info">
+  <h4><%= titre %></h4>
+</div>
+<% @les_tc.each do |tc| %>
+<% liste_tc = liste.collect{|r| r if r.type_charge.nom==tc}.compact %>
+<% if tc=='PERSONNEL' && type_c==:charge %>
+  <%= render "charges/charges_personnel" %>
+<% end %>
+<% if liste_tc.size > 0 %>
+
+<table class="table table-bordered table-striped table-condensed table-hover">
+  <thead>
+    <tr class="success">
+      <td colspan="9"><strong><%= tc %></strong></td>
+    </tr>
+    <tr class="success">
+      <th>ID</th>
+      <th>Réception</th>
+      <th>Facturation</th>
+      <th>Fournisseur</th>
+      <th>Nature</th>
+      <th>Paiement</th>
+      <th width="100">Montant</th>
+      <th>Début</th>
+      <th>Fin</th>
+    </tr>
+  </thead>
+  <tbody>
+<% liste_tc.each do |charge| %>
+  <tr>
+    <td>
+        <%= link_to charge.id,  edit_exercice_chantier_charge_path(@exercice, @chantier, charge) %>
+    </td>
+    <td><%= charge.reception ? l(charge.reception) : "-"%></td>
+    <td><%= charge.date_facturation ? l(charge.date_facturation) : "-" %></td>
+    <td><%= charge.fournisseur ? charge.fournisseur.nom : "-" %></td>
+    <td><%= charge.nature ? charge.nature : "-" %></td>
+    <td><%= charge.paiement ? l(charge.paiement) : "-" %></td>
+    <td><%= number_to_currency(charge.montant, unit: "€") %></td>
+    <td><%= charge.periode_debut ? l(charge.periode_debut) : "-"%></td>
+    <td><%= charge.periode_fin ? l(charge.periode_fin) : "-"%></td>
+  </tr>
+<% end %>
+  </tbody>
+</table>
+<% end %>
+<% end %>
+</div>

@@ -1,0 +1,11 @@
+<%= render "shared/bandeau", titre: "Modification du chantier #{@chantier.code}", texte: "Mise à jour du chantier ..." %>
+<div class="container">
+  <div class="alert alert-danger">
+    <h4>Impact sur l'activité</h4>
+    <p>
+      Si vous décochez une personne, il lui sera impossible de mettre à jour son activité (même passée) avec ce chantier.
+    </p>
+  </div>
+  <%= render 'form' %>
+  <%= destroy [@exercice, @chantier] %>
+</div>

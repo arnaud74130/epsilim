@@ -1,0 +1,5 @@
+<%= render "shared/bandeau", titre: "Modification d'un exercice", texte: "Mise à jour de l'exercice" %>
+<div class="container">
+  <%= render 'form' %>
+  <%= destroy @exercice, {roles: [:direction]} %>
+</div>

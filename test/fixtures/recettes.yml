@@ -1,0 +1,102 @@
+dmp11:
+    chantier_id: 133
+    type_financement_id: 1
+    type_recette_id: 1
+    emission: 2013-01-01
+    facturation: 2013-01-01
+    paiement: 2013-02-01
+    mode: facturee   
+    montant: 500 
+    periode_debut: 2013-01-01
+    periode_fin: 2013-12-31      
+dmp12:
+    chantier_id: 133
+    type_financement_id: 1
+    type_recette_id: 4
+    emission: 2013-04-01
+    facturation: 2013-04-01    
+    mode: facturee   
+    montant: 1000     
+    periode_debut: 2013-04-01
+    periode_fin: 2013-12-31       
+dmp11p:
+    chantier_id: 133
+    type_financement_id: 1
+    type_recette_id: 1
+    mode: previ
+    montant: 1000    
+dmp11v:
+    chantier_id: 133
+    type_financement_id: 1
+    type_recette_id: 2
+    mode: a_valider
+    montant: 1500  
+dmp11bv:
+    chantier_id: 133
+    type_financement_id: 1
+    type_recette_id: 2
+    mode: a_valider
+    montant: 250  
+dmp12v:
+    chantier_id: 133
+    type_financement_id: 1
+    type_recette_id: 1
+    mode: a_valider 
+    montant: 5000                 
+fonct1:
+    chantier_id: 220
+    type_financement_id: 1
+    type_recette_id: 4
+    emission: 2013-01-01
+    facturation: 2013-01-01    
+    mode: facturee       
+    montant: 61500 
+fonct2:
+    chantier_id: 220
+    type_financement_id: 1
+    type_recette_id: 2 
+    mode: previ  
+    montant: 123000   
+#
+#----------- E X E R C I C E    1 -----------
+#
+dmp111:
+    chantier_id: 27
+    type_financement_id: 11
+    type_recette_id: 11
+    emission: 2012-01-01
+    facturation: 2012-01-01    
+    mode: facturee
+    montant: 11500 
+dmp121:
+    chantier_id: 27
+    type_financement_id: 21
+    type_recette_id: 21
+    emission: 2012-01-01
+    facturation: 2012-01-01    
+    mode: facturee
+    montant: 438.27 
+dmp131:
+    chantier_id: 27
+    type_financement_id: 21
+    type_recette_id: 21
+    emission: 2012-01-01
+    facturation: 2012-01-01    
+    mode: facturee
+    montant: 534.12 
+fonct11:
+    chantier_id: 52
+    type_financement_id: 11
+    type_recette_id: 21
+    emission: 2012-01-01
+    facturation: 2012-01-01    
+    mode: facturee
+    montant: 61500 
+fonct21:
+    chantier_id: 52
+    type_financement_id: 1
+    type_recette_id: 2
+    emission: 2012-01-01
+    facturation: 2012-01-01    
+    mode: facturee
+    montant: 123000 

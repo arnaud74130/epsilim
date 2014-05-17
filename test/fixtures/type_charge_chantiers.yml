@@ -1,0 +1,27 @@
+one:
+   id: 1
+   chantier_id: 220
+   type_charge_id: 24
+two:
+   id: 2
+   chantier_id: 220
+   type_charge_id: 26
+three:
+   id: 3
+   chantier_id: 220
+   type_charge_id: 36
+#
+# ------- EXERCICE 1
+#
+one_ex1:
+   id: 11
+   chantier_id: 52
+   type_charge_id: 241
+two_ex1:
+   id: 21
+   chantier_id: 52
+   type_charge_id: 261
+three_ex1:
+   id: 31
+   chantier_id: 52
+   type_charge_id: 361

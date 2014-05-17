@@ -1,0 +1,35 @@
+<%= render "shared/bandeau", titre: "Exercice #{@exercice.nom}", texte: "Liste des informations associées à cet exercice." %>
+<div class="container">
+<p>
+  <strong>Nom:</strong>
+  <%= @exercice.nom %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @exercice.code %>
+</p>
+
+<p>
+  <strong>Contribution Fonctionnement:</strong>
+  <%= number_to_currency(@exercice.contribution_fonct, unit: "€") %>
+</p>
+<p>
+  <strong>Taxe Hors projet:</strong>
+  <%= number_to_currency(@exercice.contribution_hors_projet, unit: "€") %>
+</p>
+
+<p>
+  <strong>Debut:</strong>
+  <%= @exercice.debut %>
+</p>
+
+<p>
+  <strong>Fin:</strong>
+  <%= @exercice.fin %>
+</p>
+
+<%= back exercices_path %>
+<%= edit edit_exercice_path(@exercice) %>
+
+</div>

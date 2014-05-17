@@ -1,0 +1,21 @@
+<%= render "shared/bandeau", titre: "Informations du fournisseur", texte: "Liste des informations associées au fournisseur." %>
+<div class="container">
+  <p>
+    <strong>Nom:</strong>
+    <%= @fournisseur.nom %>
+  </p>
+  <p>
+    <strong>Contact:</strong>
+    <%= @fournisseur.contact %>
+  </p>
+  <p>
+    <strong>Tel:</strong>
+    <%= @fournisseur.tel %>
+  </p>
+  <p>
+    <strong>Email:</strong>
+    <%= @fournisseur.email %>
+  </p>
+  <%= back exercice_fournisseurs_path(@exercice) %>
+  <%= edit edit_exercice_fournisseur_path(@exercice, @fournisseur) %>
+</div>

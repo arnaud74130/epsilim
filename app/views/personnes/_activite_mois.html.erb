@@ -1,0 +1,41 @@
+<!-- Extraction du nombre de jours du mois courant -->
+<% 
+deb = Date.new(year, month, 1)
+dates =(deb..deb.end_of_month).to_a
+%>
+
+<table border="1">
+	<tr>
+		<% dates.each do |d| %>
+			<% if d.is_weekend? || d.holiday?(:fr)%>
+				<td  bgcolor="#cccccc"> <%= l(d, format: :short) %> </td>
+			<% else %>		 
+				<td> <%= l(d, format: :short) %> </td>
+			<% end %> 
+		<% end %>
+		
+	</tr>
+	<tr>
+		<% dates.each do |d| %>							
+			<% if d.is_weekend? || d.holiday?(:fr)%>
+				<td bgcolor="#cccccc"> 
+					
+				</td>
+			<% else %>		 
+				<td> 
+					<div id="activite_container_<%= d.yday %>">
+					<%= link_to(image_tag("plus_button.png"), activite_supp_exercice_personne_path(@exercice, @personne, jour: d.yday, annee: d.year), method: :post, remote: true) %>
+					<% liste_activites = @personne.activites_jour_annee(d.yday, d.year)%>
+					<% unless liste_activites.empty? %>
+					<% liste_activites.each do |activite| %>					
+						<%= render 'activite_repeat', {jour: activite.jour, annee: activite.annee, chantier_id: activite.chantier_id, uid: activite.uid} %>
+					<% end %>
+					<% else %>
+						<%= render 'activite_repeat', {jour: d.yday, annee: d.year, chantier_id: ''} %>				
+					<% end %>
+				    </div>
+				</td>
+			<% end %> 			
+		<% end %>
+ 	</tr>
+ </table>

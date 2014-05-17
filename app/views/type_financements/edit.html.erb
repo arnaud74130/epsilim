@@ -1,0 +1,11 @@
+<%= render "shared/bandeau", titre: "Modification d'un type de financeement pour l'exercice #{@exercice.nom}", texte: "Mise à jour" %>
+<div class="container">
+  <div class="alert alert-danger">
+    <h4>Impact sur l'activité</h4>
+    <p>
+      Il n'y a pas d'impact lorsque vous faites une modification de nom, seul l'identifiant unique est utilisé.
+    </p>
+  </div>
+  <%= render 'form' %>
+  <%= destroy [@exercice, @type_financement] %>
+</div>

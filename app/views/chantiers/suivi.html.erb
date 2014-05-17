@@ -1,0 +1,14 @@
+<%= render "shared/bandeau", titre: "Suivi d'activité du chantier #{@chantier.code}", texte: "Etat financier du chantier sur l'exercice #{@exercice.nom} jusqu'à ce jour." %>
+
+<table>
+<% @suivi_personnes.keys.each do |key| %>
+<% unless key==:total%>
+<tr>
+<td><%= key %></td>
+<td><%= @suivi_personnes[key] %> j</td>
+</tr>
+<% end %>
+<% end %>
+</table>
+
+<h2>TOTAL <%=@suivi_personnes[:total] %>j</h2>

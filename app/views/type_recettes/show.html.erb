@@ -1,0 +1,13 @@
+<%= render "shared/bandeau", titre: "Type de recette ", texte: "Liste des informations associées au type de recette" %>
+<div class="container">
+  <p>
+    <strong>Type:</strong>
+    <%= @type_recette.nom %>
+  </p>
+   <p>
+    <strong>Poids:</strong>
+    <%= @type_recette.poids %>
+  </p>
+  <%= back exercice_type_recettes_path(@exercice) %>
+  <%= edit edit_exercice_type_recette_path(@exercice, @type_recette) %>
+</div>

@@ -1,0 +1,47 @@
+<div class="table-responsive">
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr class="danger">
+        <th>Recettes</th>
+        <% if col_previ %>
+          <th>Prévisionnelles</th>
+          <th>dont à  valider</th>
+        <% end %>
+        <% if col_facturee %>
+          <th>Facturées</th>
+        <% end %>
+      </tr>
+    </thead>
+  <tbody>
+    <% @les_tr.each do |tr| %>
+    <tr>
+      <td>
+        <%= tr %>
+        <% if tr=='FONCTIONNEMENT' || tr=='HORS_PROJET' %>
+          (<%= number_with_precision(@total_recettes_facturees[:ratio]*100, precision: 2) %>% de <%= number_to_currency(@total_recettes_facturees[:total_contribution], unit: "€") %>)
+        <% end %>
+      </td>
+      <% if col_previ %>
+       <td><%= number_to_currency(@total_recettes_previ[tr],  unit: "€") %></td>
+       <td><%= number_to_currency(@total_recettes_a_valider[tr],  unit: "€") %></td>
+      <% end %>
+      <% if col_facturee %>
+       <td>
+        <%= number_to_currency(@total_recettes_facturees[tr],  unit: "€") %>
+      </td>
+      <% end %>
+    </tr>
+    <% end %>
+    <tr>
+      <td><strong>TOTAL</strong></td>
+      <% if col_previ %>
+        <td><%= number_to_currency(@total_recettes_previ[:total],  unit: "€") %></td>
+        <td><%= number_to_currency(@total_recettes_previ[:a_valider],  unit: "€") %></td>
+      <% end %>
+      <% if col_facturee %>
+        <td><%= number_to_currency(@total_recettes_facturees[:total],  unit: "€") %></td>
+      <% end %>
+    </tr>
+  </tobdy>
+</table>
+</div>

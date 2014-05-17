@@ -1,0 +1,69 @@
+<%= form_for([@exercice, @chantier], html: {class: "form-horizontal", role: "form"}) do |f| %>
+  <% if @chantier.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@chantier.errors.count, "error") %>
+        prohibited this chantier from being saved:</h2>
+      <ul>
+        <% @chantier.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- Formulaire du chantier -->
+
+  <%= hf_number_field(f, :numero) %>
+  <%= hf_text_field(f, :code) %>
+  <%= hf_text_field(f, :libelle) %>
+  <% ["projet", "fonctionnement", "hors_projet", "mission", "conges"].each do |item| %>
+<div class="radio">
+  <label>
+  <%= f.radio_button :type_chantier, item %>
+   <%= item.capitalize %>
+ </label>
+</div>
+<% end %>
+  <%= hf_text_field(f, :statut) %>
+  <%= hf_date_select(f, :debut) %>
+  <%= hf_date_select(f, :fin) %>
+  <%= hf_cancel_submit(f, exercice_chantiers_path(@exercice)) %>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <h3>Personnel</h3>
+      <% @personnes.each do |personne| %>
+        <div class="checkbox">
+          <label>
+            <%= check_box_tag :personne_ids, personne.id, @chantier.personnes.include?(personne), :name => "chantier[personne_ids][]" %>
+            <%= personne.nom  %>
+          </label>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-lg-4">
+      <h3>Type de Charge</h3>
+      <% @type_charges.each do |tc| %>
+        <div class="checkbox">
+          <label>
+            <%= check_box_tag :type_charge_ids, tc.id, @chantier.type_charges.include?(tc), :name => 'chantier[type_charge_ids][]' %>
+            <%= tc.nom  %>
+          </label>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-lg-4">
+      <h3>Type de Recette</h3>
+      <% @type_recettes.each do |tr| %>
+        <div class="checkbox">
+          <label>
+            <%= check_box_tag :type_recette_ids, tr.id, @chantier.type_recettes.include?(tr), :name => 'chantier[type_recette_ids][]' %>
+            <%= tr.nom  %>
+          </label>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+  <!-- %= select_tag("chantier[personne_ids][]", options_for_select(@personnes.collect { |personne| [personne.nom, personne.id] }, @chantier.personnes.collect { |personne| personne.id}), {:multiple=>true, :size=>5}) % -->
+<% end %>

@@ -1,0 +1,18 @@
+<% if @exercice.debut.year == @exercice.fin.year%>
+	<% (1..12).to_a.each do |m| %>		
+		<h1><%= t("date.month_names")[m].capitalize %></h1>
+		<%= render 'activite_mois', year: @exercice.debut.year, month: m %>
+		<br />
+	<% end %>
+<% else %>
+	<% (@exercice.debut.month..12).to_a.each do |m| %>		
+		<h1><%= t("date.month_names")[m].capitalize %></h1>
+		<%= render 'activite_mois', year: @exercice.debut.year, month: m %>
+		<br />
+	<% end %>
+	<% (1..@exercice.fin.month).to_a.each do |m| %>		
+		<h1><%= t("date.month_names")[m].capitalize %></h1>
+		<%= render 'activite_mois', year: @exercice.fin.year, month: m %>
+		<br />
+	<% end %>
+<% end %>

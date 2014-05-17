@@ -1,0 +1,26 @@
+<%= render "shared/bandeau_new",
+ titre: "Type de Recette de l'exercice: #{@exercice.nom}",
+ texte: "Module de gestion des types de recettes....[à compléter]",
+ path: new_exercice_type_recette_path(@exercice) %>
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Poids</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @type_recettes.each do |type_recette| %>
+        <tr>
+          <td><%= link_to type_recette.id, [@exercice, type_recette] %></td>
+          <td><%= type_recette.nom %></td>
+           <td><%= type_recette.poids %></td>
+          <td><%= edit edit_exercice_type_recette_path(@exercice, type_recette) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

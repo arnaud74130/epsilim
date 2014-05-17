@@ -1,0 +1,13 @@
+<% uid =SecureRandom.uuid unless uid %>
+<div id='activite_<%= uid %>'>
+<table border="0">
+<tr>
+<td>
+<%= select_tag "select_chantier", options_for_select(@personne.chantiers.collect { |chantier| [chantier.code, chantier.id]}.sort, chantier_id), :include_blank => true, data: {remote: true, method: :post, url: url_for( action: :activite_create, id: @personne, annee: annee, jour: jour, uid: uid)} %>
+</td>
+<td>
+<%= link_to(image_tag("minus_button.png"), activite_destroy_exercice_personne_path(@exercice, @personne, uid: uid), method: :post, remote: true) %>
+</td>
+</tr>
+</table>
+</div>

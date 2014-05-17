@@ -1,0 +1,21 @@
+ars:
+   id: 1
+   nom: ARS
+   exercice_id: 2
+   couleur: vert
+asip:
+   id: 2
+   nom: ASIP
+   exercice_id: 2
+#
+# ---------- EXERCICE 1
+#
+ars_ex1:
+   id: 3
+   nom: ARS
+   exercice_id: 1
+   couleur: vert
+asip_ex1:
+   id: 4
+   nom: ASIP
+   exercice_id: 1

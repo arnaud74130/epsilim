@@ -1,0 +1,14 @@
+<%= render "shared/bandeau", titre: "Modification de la charge", texte: "Mise à jour de la charge du chantier #{@chantier.code}" %>
+<div class="container">
+<div class="alert alert-info">
+    <h4>Impact sur l'activité</h4>
+    <p>
+      Les charges sont automatiquement recalculées ainsi que les tableaux de bord.
+    </p>
+  </div>
+  <%= render 'form' %>
+  <%= destroy [@exercice, @chantier, @charge] %>
+</div>
+
+<!-- %= link_to 'Show', exercice_chantier_charge_path(@exercice, @chantier,@charge) % --> |
+<!-- %= link_to 'Back', exercice_chantier_charges_path(@exercice, @chantier) % -->

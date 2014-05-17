@@ -1,0 +1,12 @@
+# Nombre de jours provenant de l'activité
+chantier.jours_consommes(periode)
+=> 12
+
+#Liste des recettes reçues
+chantier.total_recettes(periode, tr, a_valider, previ, reelle)
+tr1 => 5000
+tr2 => 12000
+total: 123000
+
+#Liste des charges reçues
+chantier.total_charges(periode, tc, )

@@ -1,0 +1,33 @@
+<%= render "shared/bandeau_new",
+ titre: "Les fournisseurs de l'exercice  #{@exercice.nom}",
+ texte: "Module de gestion des fournisseurs",
+ path: new_exercice_fournisseur_path(@exercice)%>
+<div class="container">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Contact</th>
+          <th>Tel</th>
+          <th>Email</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @fournisseurs.each do |fournisseur| %>
+          <tr>
+            <td><%= link_to fournisseur.id, exercice_fournisseur_path(@exercice,fournisseur) %></td>
+            <td><%= fournisseur.nom %></td>
+            <td><%= fournisseur.contact %></td>
+            <td><%= fournisseur.tel %></td>
+            <td><%= fournisseur.email %></td>
+            <td><%= edit_small edit_exercice_fournisseur_path(@exercice, fournisseur) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%= link_to 'Nouveau Fournisseur', new_exercice_fournisseur_path(@exercice) %>
+</div>

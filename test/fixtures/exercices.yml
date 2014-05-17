@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: 1
+  nom: 2012
+  code: 1
+  debut: 2012-01-01
+  fin: 2012-12-31
+  contribution_fonct: 0
+  contribution_hors_projet: 0
+
+two:
+  id: 2
+  nom: 2013
+  code: 2
+  debut: 2013-01-01
+  fin: 2013-12-31
+  contribution_fonct: 129.75
+  contribution_hors_projet: 50.84

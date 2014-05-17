@@ -1,0 +1,38 @@
+<%= render "shared/bandeau", titre: "Charge du chantier #{@chantier.code}", texte: "Liste des informations associées à la charge #{@charge.id}." %>
+<div class="container">
+  <p>
+    <strong>Chantier:</strong>
+    <%= @charge.chantier_id %>
+  </p>
+  <p>
+    <strong>Type charge:</strong>
+    <%= @charge.type_charge_id %>
+  </p>
+  <p>
+    <strong>Previ:</strong>
+    <%= @charge.previ %>
+  </p>
+  <p>
+    <strong>Reception:</strong>
+    <%= l(@charge.reception) %>
+  </p>
+  <p>
+    <strong>Fournisseur:</strong>
+    <%= @charge.fournisseur_id %>
+  </p>
+  <p>
+    <strong>Nature:</strong>
+    <%= @charge.nature %>
+  </p>
+  <p>
+    <strong>Paiement:</strong>
+    <%= l(@charge.paiement) %>
+  </p>
+  <p>
+    <strong>Montant:</strong>
+    <%= number_to_currency(@charge.montant, unit: "€") %>
+  </p>
+  <%= back exercice_chantier_charges_path(@exercice, @chantier) %>
+  <%= edit edit_exercice_chantier_charge_path(@exercice, @chantier, @charge) %>
+  |
+</div>

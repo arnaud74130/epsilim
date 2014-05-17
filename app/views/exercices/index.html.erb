@@ -1,0 +1,34 @@
+<%= render "shared/bandeau_new",
+ titre: "Les exercices",
+ texte: "Module de gestion des exercices",
+ path: new_exercice_path %>
+<div class="container">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Code</th>
+          <th>Contribution fonctionnement</th>
+          <th>Contribution hors-projet</th>
+          <th>Debut</th>
+          <th>Fin</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @exercices.each do |exercice| %>
+          <tr>
+            <td><%= link_to exercice.nom, exercice_path(exercice) %></td>
+            <td><%= exercice.code %> </td>
+            <td><%= number_to_currency(exercice.contribution_fonct, unit: "€") %> </td>
+            <td><%= number_to_currency(exercice.contribution_hors_projet, unit: "€") %> </td
+            <td><%= exercice.debut %></td>
+            <td><%= exercice.fin %></td>
+            <td><%= link_to 'Choisir', exercice, :class => 'btn btn-primary btn-lg' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

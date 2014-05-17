@@ -1,0 +1,13 @@
+<%= render "shared/bandeau", titre: "Type de financement de l'exercice #{@exercice.code}", texte: "Liste des informations associées au Type de financement." %>
+<div class="container">
+  <p>
+    <strong>Nom:</strong>
+    <%= @type_financement.nom %>
+  </p>
+  <p>
+    <strong>Couleur:</strong>
+    <%= @type_financement.couleur %>
+  </p>
+  <%= back exercice_type_financements_path(@exercice) %>
+  <%= edit edit_exercice_type_financement_path(@exercice, @type_financement) %>
+</div>

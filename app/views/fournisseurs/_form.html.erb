@@ -1,0 +1,18 @@
+<%= form_for([@exercice, @fournisseur], html: {class: "form-horizontal", role: "form"}) do |f| %>
+  <% if @fournisseur.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@fournisseur.errors.count, "error") %>
+        prohibited this fournisseur from being saved:</h2>
+      <ul>
+        <% @fournisseur.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= hf_text_field(f, :nom) %>
+  <%= hf_text_field(f, :contact) %>
+  <%= hf_text_field(f, :tel) %>
+  <%= hf_text_field(f, :email) %>
+  <%= hf_cancel_submit(f, exercice_fournisseurs_path(@exercice)) %>
+<% end %>

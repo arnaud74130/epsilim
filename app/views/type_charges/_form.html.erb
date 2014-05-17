@@ -1,0 +1,19 @@
+<%= form_for([@exercice, @type_charge], html: {class: "form-horizontal", role: "form"}) do |f| %>
+  <% if @type_charge.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@type_charge.errors.count, "error") %> prohibited this type_charge from being saved:</h2>
+
+      <ul>
+      <% @type_charge.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- Formulaire du chantier -->
+
+  <%= hf_text_field(f, :nom) %>
+  <%= hf_number_field(f, :poids) %>
+  <%= hf_cancel_submit(f, exercice_type_charges_path(@exercice)) %>
+ <% end %>

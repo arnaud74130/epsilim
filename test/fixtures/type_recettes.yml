@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+personnel:
+    id: 1
+    nom: PERSONNEL
+    exercice_id: 2
+investissement:
+    id: 2
+    nom: INVESTISSEMENT
+    exercice_id: 2
+ss_traitance:
+    id: 3
+    nom: SOUS-TRAITANCE
+    exercice_id: 2
+autres:
+    id: 4
+    nom: AUTRES-RECETTES
+    exercice_id: 2 
+#    
+# ----------- EXERCICE 1 -----------
+#
+personnel_ex1:
+    id: 11
+    nom: PERSONNEL
+    exercice_id: 1
+investissement_ex1:
+    id: 21
+    nom: INVESTISSEMENT
+    exercice_id: 1
+ss_traitance_ex1:
+    id: 31
+    nom: SOUS-TRAITANCE
+    exercice_id: 1
+autres_ex1:
+    id: 41
+    nom: AUTRES-RECETTES
+    exercice_id: 1 

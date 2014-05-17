@@ -1,0 +1,6 @@
+nbre_activites = <%= @nbre_activites %>;
+console.log(nbre_activites);
+if(nbre_activites<4){
+	var html = "<%= escape_javascript(render('personnes/activite_repeat', {jour: @jour, annee: @annee, chantier_id: ''})) %>";
+	$('#activite_container_<%= @jour %>').append(html);
+}

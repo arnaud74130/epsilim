@@ -1,0 +1,27 @@
+<%= render "shared/bandeau",
+ titre: "Chantier à valider",
+ texte: "Liste des chantiers contenant au moins une recette en attente de validation (avenant CPOM, convention, etc.)" %>
+ <div class="container">
+<p id="notice"><%= notice %></p>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr class="danger">
+        <th>Code</th>
+        <th>Chantier</th>
+        <th>Montant à valider</th>
+      </tr>
+    </thead>
+  <tbody>
+    <% @chantiers_a_valider.each do |chantier| %>
+    <tr>
+      <td><%= link_to chantier.code,  exercice_chantier_recettes_path(@exercice, chantier) %></td>
+      <td><%= chantier.code %></td>
+      <td><%= number_to_currency(chantier.total_recettes_a_valider[:total],  unit: "€") %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>

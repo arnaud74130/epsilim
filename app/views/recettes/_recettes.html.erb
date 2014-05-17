@@ -1,0 +1,48 @@
+<div class="table-responsive">
+<div class="alert alert-info">
+  <h4><%= titre %></h4>
+</div>
+<% @les_tr.each do |tr| %>
+<table class="table table-bordered table-striped table-condensed table-hover">
+  <thead>
+    <tr class="success">
+      <th colspan="11"><strong><%= tr %></strong></th>
+    </tr>
+    <tr class="success">
+      <th>ID</th>
+      <th>Financement</th>
+      <th>Emission</th>
+      <th>Facturation</th>
+      <th>Nature</th>
+      <th width="100">Montant</th>
+      <th>Nombre de jours</th>
+      <th width="100">Tarifs de vente</th>
+      <th>Paiement</th>
+      <th>Début</th>
+      <th>Fin</th>
+    </tr>
+  </thead>
+  <tbody>
+<% liste.collect{|r| r if r.type_recette.nom==tr}.compact.each do |recette| %>
+  <tr>
+    <td>
+      <% if (recette.type_recette.nom != 'FONCTIONNEMENT' && recette.type_recette.nom != 'HORS_PROJET')  %>
+        <%= link_to recette.id,  edit_exercice_chantier_recette_path(@exercice, @chantier, recette) %>
+      <% end %>
+    </td>
+    <td><%= recette.type_financement ? recette.type_financement.nom : "-"%></td>
+    <td><%= recette.emission ? l(recette.emission) : "-" %></td>
+    <td><%= recette.facturation ? l(recette.facturation) : "-" %></td>
+    <td><%= recette.nature ? recette.nature : "-" %></td>
+    <td><%= number_to_currency(recette.montant, unit: "€") %></td>
+    <td><%= recette.nombre_jours ? recette.nombre_jours : "-" %></td>
+    <td><%= number_to_currency(recette.tarif_vente, unit: "€") %></td>
+    <td><%= recette.paiement ? l(recette.paiement) : "-" %></td>
+    <td><%= recette.periode_debut ? l(recette.periode_debut) : "-"%></td>
+    <td><%= recette.periode_fin ? l(recette.periode_fin) : "-"%></td>
+  </tr>
+<% end %>
+  </tbody>
+</table>
+<% end %>
+</div>

@@ -1,0 +1,38 @@
+<% if @total_charges[:jours] > 0 %>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr class="success">
+        <td colspan="4"><strong>PERSONNEL</strong></td>
+      </tr>
+      <tr class="success">
+        <th>NOM</th>
+        <th>JOURS</th>
+        <th>Total vue financeur</th>
+        <% if current_user.is_direction? || current_user.is_ro? %>
+          <th>Total réel</th>
+        <% end %>
+      </tr>
+    <thead>
+    <tbody>
+      <% @total_charges['ACTIVITE_PERSONNEL'].each do |initiale, jours| %>
+      <% p = @exercice.personnes.where(initiale: initiale).first %>
+      <tr>
+        <td><%= p.full_name %></td>
+        <td><%= number_with_precision(jours, precision: 2) %></td>
+        <td><%= number_to_currency(p.tarif_vente*jours , unit: "€") %></td>
+        <% if current_user.is_direction? || current_user.is_ro? %>
+          <td>
+            <% if @chantier.type_chantier == 'projet' %>
+            <%=  number_to_currency((p.cout_reel+@exercice.contribution_fonct + @exercice.contribution_hors_projet)*jours , unit: "€")%>
+            <% else %>
+               <%=  number_to_currency(p.cout_reel*jours , unit: "€")%>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% end %>

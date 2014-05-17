@@ -1,0 +1,76 @@
+
+<%= render "shared/bandeau", titre: "Chantier #{@chantier.code}", texte: "Liste des informations associées au chantier." %>
+<div class="container">
+  <p>
+    <strong>Id:</strong>
+    <%= @chantier.id %>
+  </p>
+  <p>
+    <strong>Numero:</strong>
+    <%= @chantier.numero %>
+  </p>
+  <p>
+    <strong>Code:</strong>
+    <%= @chantier.code %>
+  </p>
+  <p>
+    <strong>Libéllé:</strong>
+    <%= @chantier.libelle %>
+  </p>
+  <p>
+    <strong>Prendre les taxes (Fonctionnement / Hors Projet):</strong>
+    <%= @chantier.prendre_taxes %>
+  </p>
+  <p>
+    <strong>Type de projet:</strong>
+    <%= @chantier.type_chantier %>
+  </p>
+
+  <p>
+    <strong>Statut:</strong>
+    <%= @chantier.statut %>
+  </p>
+  <p>
+    <strong>Début:</strong>
+    <%= @chantier.debut %>
+  </p>
+  <p>
+    <strong>Fin:</strong>
+    <%= @chantier.fin %>
+  </p>
+  <div class="row">
+    <div class="col-lg-4">
+      <h3>Personnel</h3>
+      <ul>
+        <% @chantier.personnes.each do |p| %>
+          <li>
+            <%= p.nom + " " + p.prenom %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-lg-4">
+      <h3>Type de charge</h3>
+      <ul>
+        <% @chantier.type_charges.each do |tc| %>
+          <li>
+            <%= tc.nom %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-lg-4">
+      <h3>Type de recette</h3>
+      <ul>
+        <% @chantier.type_recettes.each do |tr| %>
+          <li>
+            <%= tr.nom %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+  </div>
+  <%= back exercice_chantiers_path(@exercice) %>
+  <%= edit edit_exercice_chantier_path(@exercice,@chantier) %>
+</div>

@@ -1,0 +1,43 @@
+
+<div class="jumbotron">
+  <div class="container">
+    <h2><%= "Listing des personnes en #{@exercice.nom}" %></h2>
+    <p>Module de gestion du personnel :Ajout, visualisation (en cliquant sur le nom), modification puis supression (en bas de page). L'accès à l'activité se fait également depuis cette page....[à compléter]</p>
+    <%= new  new_exercice_personne_path(@exercice), {genre: :feminin, roles: [:direction]} %>
+  </div>
+</div>
+<div class="container">
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Initiale</th>
+          <th>Mail</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @personnes.each do |personne| %>
+          <tr>
+            <td><%= link_to personne.nom, exercice_personne_path(@exercice,personne)  %></td>
+            <td><%= personne.prenom %></td>
+            <td><%= personne.initiale %></td>
+            <td><%= personne.mail %></td>
+            <td>
+              <%= link_button(activite_exercice_personne_path(@exercice, personne), {class: 'btn btn-info btn-small'}, {roles: [:direction, :cp], restriction: {id: personne.id, role: :cp}}, "activite") %>
+            </td>
+            <td>
+              <!-- edit_small => actif si on est admin ou compta, ou alors si on a l'id associé -->
+              <%= edit_small edit_exercice_personne_path(@exercice, personne) %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+   <%= link_to "Excel", exercice_personnes_path(@exercice,format: "xls") %>
+</div>

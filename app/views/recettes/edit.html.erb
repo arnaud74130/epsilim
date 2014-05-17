@@ -1,0 +1,11 @@
+<%= render "shared/bandeau", titre: "Modification de la recette", texte: "Mise à jour de la recette du chantier #{@chantier.code}" %>
+<div class="container">
+<div class="alert alert-info">
+    <h4>Impact sur l'activité</h4>
+    <p>
+      Les recettes sont automatiquement recalculées ainsi que les tableaux de bord.
+    </p>
+  </div>
+  <%= render 'form' %>
+  <%= destroy [@exercice, @chantier, @recette] %>
+</div>

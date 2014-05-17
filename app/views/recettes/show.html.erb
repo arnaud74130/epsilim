@@ -1,0 +1,46 @@
+<%= render "shared/bandeau", titre: "Recette du chantier #{@chantier.code}", texte: "Liste des informations associées à la recette #{@recette.id}." %>
+<div class="container">
+  <p>
+    <strong>Chantier:</strong>
+    <%= @recette.chantier_id %>
+  </p>
+  <p>
+    <strong>Type Financement:</strong>
+    <%= TypeFinancement.find(@recette.type_financement_id).nom %>
+  </p>
+  <p>
+    <strong>Type Recette:</strong>
+    <%= TypeRecette.find(@recette.type_recette_id).nom %>
+  </p>
+  <p>
+    <strong>Mode:</strong>
+    <%= @recette.mode %>
+  </p>
+  <p>
+    <strong>Emission:</strong>
+    <%= @recette.emission %>
+  </p>
+  <p>
+    <strong>Nombre de jours:</strong>
+    <%= @recette.nombre_jours %>
+  </p>
+    <p>
+    <strong>Tarif vente:</strong>
+    <%= @recette.tarif_vente %>
+  </p>
+
+  <p>
+    <strong>Nature:</strong>
+    <%= @recette.nature %>
+  </p>
+  <p>
+    <strong>Montant:</strong>
+    <%= @recette.montant %>
+  </p>
+  <p>
+    <strong>Commentaire:</strong>
+    <%= @recette.commentaire %>
+  </p>
+  <%= back exercice_chantier_recettes_path(@exercice, @chantier) %>
+  <%= edit edit_exercice_chantier_recette_path(@exercice, @chantier, @recette) %>
+</div>

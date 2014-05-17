@@ -1,0 +1,27 @@
+<%= render "shared/bandeau_new",
+ titre: "Recettes du chantier #{@chantier.code} de l'exercice: #{@exercice.nom}",
+ texte: "Module de gestion des recettes....[à compléter]",
+ path: new_exercice_chantier_recette_path(@exercice, @chantier)%>
+<div class="container">
+ <!-- Choix de la période -->
+  <p id="notice"><%= notice %></p>
+  <%= render "shared/periode", path: exercice_chantier_recettes_path(@exercice, @chantier) %>
+<div class="alert alert-danger">
+<h4>Synthèse</h4>
+</div>
+<%= render "shared/synthese_recettes", col_previ: true, col_facturee: true %>
+
+<% if @total_recettes_facturees[:liste].size > 0 %>
+  <%= render "recettes", liste: @total_recettes_facturees[:liste], titre: "Recettes Facturées"   %>
+<% end %>
+
+<% if @total_recettes_previ[:liste].size - @total_recettes_a_valider[:liste].size > 0 %>
+  <%= render "recettes", titre: "Recettes prévisionnelles",liste: @total_recettes_previ[:liste].map{|r| r if r.mode=='previ'}.compact  %>
+<% end %>
+
+<% if @total_recettes_a_valider[:liste].size > 0 %>
+  <%= render "recettes", titre: "Recettes prévisionnelles à valider" ,liste: @total_recettes_a_valider[:liste]  %>
+<% end %>
+
+
+</div>

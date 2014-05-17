@@ -1,0 +1,5 @@
+<%= render "shared/bandeau", titre: "Modification d'un type de charge", texte: "Mise à jour d'un type charge de #{@exercice.nom}" %>
+<div class="container">
+  <%= render 'form' %>
+  <%= destroy [@exercice, @chantier, @type_charge] %>
+</div>

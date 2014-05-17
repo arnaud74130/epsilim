@@ -1,0 +1,32 @@
+<%= render "shared/bandeau",
+ titre: "Suivi des fonds",
+ texte: "Regroupement des chantiers par type de fonds identifiés par des $fond$ dans la nature des recettes." %>
+<div class="container">
+<p id="notice"><%= notice %></p>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr class="danger">
+        <th>Fonds</th>
+        <th width="200">Total Prévisionnel (sans à valider)</th>
+        <th width="100">Total à valider</th>
+        <th width="100">Total Facturé</th>
+
+        <th>Chantiers</th>
+      </tr>
+    </thead>
+  <tbody>
+    <% @fonds.each do |fond, paquet| %>
+    <tr>
+      <td><%= fond %></td>
+      <td><%= number_to_currency(paquet[:total_previ], unit: "€") %></td>
+      <td><%= number_to_currency(paquet[:total_a_valider], unit: "€") %></td>
+      <td><%= number_to_currency(paquet[:total_facture], unit: "€") %></td>
+      <td><%= paquet[:chantiers].join(" / ") %></td>
+    </tr>
+    <% end %>
+</tbody>
+</table>
+</div>
+</div>

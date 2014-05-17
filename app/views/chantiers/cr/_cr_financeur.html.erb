@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="col-lg-6">
+    <%= render "shared/synthese_charges", col_previ: false, col_financeur: true, col_reelle: false %>
+  </div>
+  <div class="col-lg-6">
+    <%= render "shared/synthese_recettes", col_previ: false, col_facturee: true %>
+  </div>
+</div>
+<%= render "chantiers/cr/solde_cr", total: @total_recettes_facturees[:total] - @total_charges[:total], titre: "Solde vue financeur" %>

@@ -1,0 +1,29 @@
+<%= render "shared/bandeau_new",
+ titre: "Les types de financement #{@exercice.nom}",
+ texte: "Module de gestion des types de financement d'un exercice donné : Ajout, visualisation, modification et supression.",
+ path: new_exercice_type_financement_path(@exercice) %>
+<div class="container">
+
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Couleur</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @type_financements.each do |type_financement| %>
+          <tr>
+            <td><%= link_to type_financement.id, [@exercice, type_financement] %> </td>
+            <td><%= type_financement.nom %></td>
+            <td><%= type_financement.couleur %></td>
+            <td><%= edit edit_exercice_type_financement_path(@exercice, type_financement) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

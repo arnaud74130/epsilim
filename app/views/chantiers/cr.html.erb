@@ -1,0 +1,23 @@
+<%= render "shared/bandeau",
+ titre: "Compte de résultat du chantier #{@chantier.code}",
+ texte: "Balance entre les recettes et les charges" %>
+<div class="container">
+  <%= render "shared/periode", path: cr_exercice_chantier_path(@exercice, @chantier) %>
+<div class="alert alert-info">
+  <h4>Vue prévisionnelle</h4>
+</div>
+<%= render "chantiers/cr/cr_previ" %>
+
+<div class="alert alert-info"><h4>Vue financeur</h4></div>
+<%= render "chantiers/cr/cr_financeur" %>
+<% if current_user.is_direction? || current_user.is_ro? %>
+  <div class="alert alert-info"><h4>Vue réelle</h4></div>
+  <%= render "chantiers/cr/cr_reel" %>
+
+  <div class="alert alert-info"><h4>Solde à dépenser</h4></div>
+  <%= render "chantiers/cr/cr_solde_a_depenser" %>
+
+  <div class="alert alert-info"><h4>Solde à facturer</h4></div>
+  <%= render "chantiers/cr/cr_solde_a_facturer" %>
+<% end %>
+</div>

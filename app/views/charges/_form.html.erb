@@ -1,0 +1,30 @@
+<%= form_for([@exercice, @chantier, @charge], html: {class: "form-horizontal", role: "form"}) do |f| %>
+  <% if @charge.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@charge.errors.count, "error") %>
+        prohibited this charge from being saved:</h2>
+      <ul>
+        <% @charge.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= hf_select_with_collection f, :type_charge_id, options_from_collection_for_select(@type_charges, 'id', 'nom', @charge.type_charge_id) %>
+  <%= hf_check_box f, :previ %>
+  <%= hf_date_select f, :reception %>
+  <%= hf_date_select f, :date_facturation %>
+  <%= hf_select_with_collection f, :fournisseur_id, options_from_collection_for_select(@fournisseurs, 'id', 'nom', @charge.fournisseur_id) %>
+  <%= hf_text_field f, :nature %>
+  <%= hf_date_select f, :paiement %>
+  <%= hf_text_field f, :montant %>
+  <div class="panel panel-default">
+    <div class="panel-heading">Choix de la période</div>
+    <div class="panel-body">
+
+      <%= hf_date_select f, :periode_debut, {default: @exercice.debut} %>
+      <%= hf_date_select f, :periode_fin, {default: @exercice.fin} %>
+    </div>
+  </div>
+  <%= hf_cancel_submit(f, exercice_chantier_charges_path(@exercice, @chantier)) %>
+<% end %>

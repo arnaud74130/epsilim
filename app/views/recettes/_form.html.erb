@@ -1,0 +1,52 @@
+<%= form_for([@exercice, @chantier, @recette], html: {class: "form-horizontal", role: "form"}) do |f| %>
+  <% if @recette.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@recette.errors.count, "error") %>
+        prohibited this recette from being saved:</h2>
+      <ul>
+        <% @recette.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= hf_select_with_collection f, :type_financement_id, options_from_collection_for_select(@type_financements, 'id', 'nom', @recette.type_financement_id) %>
+  <%= hf_select_with_collection f, :type_recette_id, options_from_collection_for_select(@type_recettes, 'id', 'nom', @recette.type_recette_id) %>
+
+  <% ["facturee", "previ", "a_valider"].each do |item| %>
+<div class="radio">
+  <label>
+  <%= f.radio_button :mode, item %>
+   <%= item.capitalize %>
+ </label>
+</div>
+<% end %>
+
+  <%= hf_date_select f, :emission %>
+  <%= hf_date_select f, :facturation %>
+
+  <%= hf_text_field f, :nature %>
+  <%= hf_text_field f, :montant %>
+
+  <!-- Afficher/masquer uniquement si type_recette.nom=PERSONNEL -->
+  <%= hf_number_field f, :nombre_jours %>
+  <%= hf_text_field f, :tarif_vente %>
+    <%= hf_date_select f, :paiement, {:include_blank => true}  %>
+  <!-- fin affichage champs personnel -->
+ <div class="panel panel-default">
+    <div class="panel-heading">Commentaires</div>
+    <div class="panel-body">
+ <%= hf_text_area f, :commentaire %>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">Choix de la période</div>
+    <div class="panel-body">
+
+      <%= hf_date_select f, :periode_debut, {default: @exercice.debut} %>
+      <%= hf_date_select f, :periode_fin, {default: @exercice.fin} %>
+    </div>
+  </div>
+  <%= hf_cancel_submit(f, exercice_chantier_recettes_path(@exercice, @chantier)) %>
+<% end %>

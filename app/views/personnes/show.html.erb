@@ -1,0 +1,44 @@
+<%= render "shared/bandeau", titre: "#{@personne.nom}", texte: "Informations relatives à cette personne." %>
+<div class="container">
+<p>
+  <strong>Nom:</strong>
+  <%= @personne.nom %>
+</p>
+
+<p>
+  <strong>Prenom:</strong>
+  <%= @personne.prenom %>
+</p>
+
+<p>
+  <strong>Initiale:</strong>
+  <%= @personne.initiale %>
+</p>
+
+<p>
+  <strong>Mail:</strong>
+  <%= @personne.mail %>
+</p>
+
+<p>
+  <strong>Tarif de vente:</strong>
+  <%= number_to_currency(@personne.tarif_vente, unit: "€") %>
+</p>
+<% if current_user.is_direction? || current_user.is_ro? %>
+  <p>
+  <strong>Coût réel:</strong>
+  <%= number_to_currency(@personne.cout_reel, unit: "€") %>
+</p>
+
+<p>
+  <strong>Role:</strong>
+  <%= @personne.roles %>
+</p>
+<% end %>
+
+
+
+<%= back exercice_personnes_path(@exercice) %>
+<%= edit edit_exercice_personne_path(@exercice, @personne) %>
+
+</div>

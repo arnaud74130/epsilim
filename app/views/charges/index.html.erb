@@ -1,0 +1,17 @@
+<%= render "shared/bandeau_new",
+ titre: "Charges du chantier #{@chantier.code} de l'exercice: #{@exercice.nom}",
+ texte: "Module de gestion des charges....[à compléter]", path: new_exercice_chantier_charge_path(@exercice, @chantier) %>
+<div class="container">
+  <p id="notice"><%= notice %></p>
+  <%= render "shared/periode", path: exercice_chantier_charges_path(@exercice, @chantier) %>
+<div class="alert alert-danger">
+<h4>Synthèse des charges</h4>
+</div>
+<%= render "shared/synthese_charges", col_previ: true, col_financeur: true, col_reelle: true %>
+
+<% if @total_charges_previ[:liste].size > 0 %>
+  <%= render "charges", liste: @total_charges_previ[:liste], titre: "Charges prévisionnelles", type_c: :previ %>
+<% end %>
+
+<%= render "charges", liste: @total_charges[:liste], titre: "Charges", type_c: :charge %>
+</div>

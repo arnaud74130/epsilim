@@ -1,0 +1,39 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one:
+    chantier_id: 133
+    type_recette_id: 1
+two:
+    chantier_id: 133
+    type_recette_id: 2
+three:    
+    chantier_id: 133
+    type_recette_id: 3
+four:    
+    chantier_id: 133
+    type_recette_id: 4
+five:
+    chantier_id: 220
+    type_recette_id: 1
+#
+#------------ EXERCICE 1
+#
+one_ex1:
+    chantier_id: 27
+    type_recette_id: 11
+two_ex1:
+    chantier_id: 27
+    type_recette_id: 21
+three_ex1:    
+    chantier_id: 27
+    type_recette_id: 31
+four_ex1:    
+    chantier_id: 27
+    type_recette_id: 41
+five_ex1:
+    chantier_id: 52
+    type_recette_id: 11

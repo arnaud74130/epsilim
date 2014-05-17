@@ -1,0 +1,26 @@
+<%= render "shared/bandeau_new",
+ titre: "Type de Charge de l'exercice: #{@exercice.nom}",
+ texte: "Module de gestion des types de charges....[à compléter]",
+ path: new_exercice_type_charge_path(@exercice)%>
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Poids</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @type_charges.each do |type_charge| %>
+        <tr>
+          <td><%= link_to type_charge.id, [@exercice, type_charge] %></td>
+          <td><%= type_charge.nom %></td>
+          <td><%= type_charge.poids %></td>
+          <td><%= edit edit_exercice_type_charge_path(@exercice, type_charge) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

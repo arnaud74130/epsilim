@@ -1,0 +1,60 @@
+<div class="table-responsive">
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr class="danger">
+        <th>Type de charge</th>
+         <% if col_previ %>
+          <th>Prévisionnelles</th>
+        <% end %>
+        <% if @chantier.type_chantier=='projet' && col_financeur %>
+          <th>Total vue financeur</th>
+        <% end %>
+        <% if (current_user.is_direction? || current_user.is_ro?) && col_reelle %>
+          <th>Total Réel</th>
+        <% end %>
+      </tr>
+    </thead>
+  <tbody>
+     <% @les_tc.each do |code| %>
+    <tr>
+        <td>
+          <%= code %>
+          <% if code=='PERSONNEL' %>
+            (<%=number_with_precision(@total_charges[:jours], precision: 2)  %> jours)
+          <% end %>
+        </td>
+        <% if col_previ %>
+          <td><%= number_to_currency(@total_charges_previ[code], unit: "€") %></td>
+        <% end %>
+
+        <% if @chantier.type_chantier=='projet' && col_financeur %>
+          <td><%= number_to_currency(@total_charges[code], unit: "€") %></td>
+        <% end %>
+
+        <% if (current_user.is_direction? || current_user.is_ro?) && col_reelle %>
+          <td>
+            <% if code=='PERSONNEL' %>
+               <%= number_to_currency(@total_charges['PERSONNEL_REELLE'], unit: "€") %>
+            <% else %>
+               <%= number_to_currency(@total_charges[code], unit: "€") %>
+            <% end %>
+          </td>
+        <% end %>
+
+    </tr>
+    <% end %>
+    <tr>
+      <td><STRONG>TOTAL</STRONG></td>
+       <% if col_previ %>
+        <td><%= number_to_currency(@total_charges_previ[:total], unit: "€") %></td>
+       <% end %>
+      <% if @chantier.type_chantier=='projet' && col_financeur %>
+        <td><%= number_to_currency(@total_charges[:total], unit: "€") %></td>
+      <% end %>
+      <% if  (current_user.is_direction? || current_user.is_ro?) && col_reelle %>
+         <td><%= number_to_currency(@total_charges[:total_reel], unit: "€") %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+</div>

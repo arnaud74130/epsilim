@@ -1,0 +1,12 @@
+<%= render "shared/bandeau", titre: "Modification des attributs d'une personne", texte: "Ce changement s'opère sur l'exercice #{@exercice.code}" %>
+<div class="container">
+  <div class="alert alert-danger">
+    <h4>Impact sur l'activité</h4>
+    <p>
+      La suppression de la personne impact l'ensemble de l'activité et des tableaux de bord
+    </p>
+  </div>
+
+  <%= render 'form' %>
+  <%= destroy [@exercice, @personne] %>
+</div>

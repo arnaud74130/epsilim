@@ -1,0 +1,22 @@
+<%= form_for(@exercice, html: {class: "form-horizontal", role: "form"}) do |f| %>
+  <% if @exercice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@exercice.errors.count, "error") %> prohibited this exercice from being saved:</h2>
+
+      <ul>
+      <% @exercice.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<%= hf_text_field(f, :nom) %>
+<%= hf_text_field(f, :code) %>
+<%=hf_text_field(f, :contribution_fonct) %>
+<%=hf_text_field(f, :contribution_hors_projet) %>
+<%= hf_date_select(f, :debut) %>
+<%= hf_date_select(f, :fin) %>
+<%= hf_cancel_submit(f, exercices_path) %>
+
+<% end %>

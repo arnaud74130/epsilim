@@ -1,0 +1,54 @@
+<%= render "shared/bandeau_new",
+ titre: "Les chantiers #{@exercice.nom}",
+ texte: "Module de gestion des chantiers d'un exercice donné : Ajout, visualisation, modification et supression. Les personnes ainsi que les types de charges doivent être affectés à un chantier. Les charges ainsi que les recettes sont également affectées depuis cette page....[à compléter]", path: new_exercice_chantier_path(@exercice)  %>
+<div class="container">
+  <div class="alert alert-info">
+    <h4>Info sur la suppression</h4>
+    <p>
+      La suppression d'un chantier se fait en deux temps : cliquer sur modifier puis en bas de page vous trouverez le bouton suppression.
+    </p>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Numéro</th>
+          <th>Code</th>
+          <th>Libéllé</th>
+          <th>Statut</th>
+          <th>Début</th>
+          <th>Fin</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @chantiers.each do |chantier| %>
+        <% if chantier.prendre_taxes %>
+          <% roles={roles: [:direction, :ro, :cp]} %>
+        <% else %>
+          <% roles={roles: [:direction, :ro]} %>
+        <% end %>
+          <tr>
+            <td><%= chantier.numero %></td>
+            <td><%= link_to chantier.code, exercice_chantier_path(@exercice,chantier)%></td>
+            <td><%= chantier.libelle %></td>
+            <td><%= chantier.statut %></td>
+            <td><%= chantier.debut ? l(chantier.debut) : "-" %></td>
+            <td><%= chantier.debut ? l(chantier.fin) : "-" %></td>
+            <td>
+              <%= link_button(exercice_chantier_charges_path(@exercice, chantier), {class: 'btn btn-primary btn-small'}, roles, "charges") %>
+            </td>
+            <td>
+              <%= link_button(exercice_chantier_recettes_path(@exercice, chantier), {class: "btn btn-success btn-small", id: "link_#{chantier.id}_recettes"}, roles, "Recettes") %>
+            </td>
+            <td>
+              <%= link_button(cr_exercice_chantier_path(@exercice, chantier), {class: 'btn btn-warning btn-small'}, roles, "CR") %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

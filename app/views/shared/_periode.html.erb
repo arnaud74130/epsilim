@@ -1,0 +1,37 @@
+  <div class="alert alert-info">
+    <h4>Restriction sur une période</h4>
+    <p>
+      La restriction sur une période pondère les valeurs sur la durée définie au prorata d'une nombre de jours. Sans période (bouton annuler) vous obtenez la totalité des valeurs actuelles entrées dans le logiciel.
+    </p>
+  </div>
+<div class="panel panel-primary">
+    <div class="panel-heading">Choix de la période</div>
+    <div class="panel-body">
+      <%= form_tag(path, :method => 'get', html: {class: "form", role: "form"}) do %>
+        <div class="form-group">
+          <label for="debPeriode" class="control-label">Début :
+          </label>
+          <% if @periode_debut %>
+            <%= date_select("deb_periode", "Début", default: @periode_debut) %>
+          <% else %>
+            <%= date_select("deb_periode", "Début", default: @exercice.debut) %>
+          <% end %>
+        </div>
+        <div class="form-group">
+          <label for="finPeriode" class="control-label">Fin :
+          </label>
+          <% if @periode_fin %>
+            <%= date_select("fin_periode", "Fin", default: @periode_fin) %>
+          <% else %>
+            <%= date_select("fin_periode", "Fin", default: @exercice.fin) %>
+          <% end %>
+        </div>
+        <div class="form-group">
+          <div>
+            <%= submit_tag "Restreindre", class: "btn btn-primary" %>
+            <%= cancel path %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>

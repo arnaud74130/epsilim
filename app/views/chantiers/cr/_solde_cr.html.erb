@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-lg-6">
+  </div>
+  <div class="col-lg-6">
+    <table class="table table-bordered">
+      <thead>
+        <tr class="danger">
+          <th><%= titre %></th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="warning">
+          <td></td>
+          <td>
+            <strong>
+<%= number_to_currency(total, unit: "€") %>
+            </strong>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

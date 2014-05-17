@@ -1,0 +1,132 @@
+# ------ CTS sur le fonctionnement
+c0:
+    personne_id: 1
+    chantier_id: 220
+    jour: 1
+    annee: 2013
+    poids: 1
+c1:
+    personne_id: 1
+    chantier_id: 220
+    jour: 32 # 1 fev
+    annee: 2013
+    poids: 0.5
+c2:
+    personne_id: 1
+    chantier_id: 220
+    jour: 60 # 1 mars
+    annee: 2013
+    poids: 1
+c3:
+    personne_id: 1
+    chantier_id: 220
+    jour: 91 # 1 avr
+    annee: 2013
+    poids: 1
+c4:
+    personne_id: 1
+    chantier_id: 220
+    jour: 121 # 1 mai
+    annee: 2013
+    poids: 0.25
+# ------ CTS sur le DMP
+c1d:
+    personne_id: 1
+    chantier_id: 133 
+    jour: 121 
+    annee: 2013
+    poids: 1
+c2d:
+    personne_id: 1
+    chantier_id: 133 
+    jour: 1
+    annee: 2013
+    poids: 0.25
+# ---  aga sur fonctionnement
+a0:
+    personne_id: 2
+    chantier_id: 220
+    jour: 1
+    annee: 2013
+    poids: 0.75
+a1:
+    personne_id: 2
+    chantier_id: 220
+    jour: 32 # 1 fev
+    annee: 2013
+    poids: 0.25
+a2:
+    personne_id: 2
+    chantier_id: 220
+    jour: 60 # 1 mars
+    annee: 2013
+    poids: 1    
+
+# --------------- EXERCICE 1 ------------------
+# ------ CTS sur le fonctionnement
+c0_ex1:
+    personne_id: 3
+    chantier_id: 52
+    jour: 1
+    annee: 2012
+    poids: 1
+c1_ex1:
+    personne_id: 3
+    chantier_id: 52
+    jour: 32 # 1 fev
+    annee: 2012
+    poids: 0.5
+c2_ex1:
+    personne_id: 3
+    chantier_id: 52
+    jour: 60 # 1 mars
+    annee: 2012
+    poids: 1
+c3_ex1:
+    personne_id: 3
+    chantier_id: 52
+    jour: 91 # 1 avr
+    annee: 2012
+    poids: 1
+c4_ex1:
+    personne_id: 3
+    chantier_id: 52
+    jour: 121 # 1 mai
+    annee: 2012
+    poids: 0.25
+# ------ CTS sur le DMP
+c1d_ex1:
+    personne_id: 3
+    chantier_id: 27
+    jour: 121
+    annee: 2012
+    poids: 1
+c2d_ex1:
+    personne_id: 3
+    chantier_id: 27
+    jour: 1
+    annee: 2012
+    poids: 0.25
+# ---  aga sur fonctionnement
+a0_ex1:
+    personne_id: 4
+    chantier_id: 52
+    jour: 1
+    annee: 2012
+    poids: 0.75
+a1_ex1:
+    personne_id: 4
+    chantier_id: 52
+    jour: 32 # 1 fev
+    annee: 2012
+    poids: 0.25
+a2_ex1:
+    personne_id: 4
+    chantier_id: 52
+    jour: 60 # 1 mars
+    annee: 2012
+    poids: 1    
+
+
+
+

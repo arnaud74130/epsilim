@@ -1,0 +1,28 @@
+one:
+    chantier_id: 220
+    personne_id: 1
+two:
+    chantier_id: 133
+    personne_id: 1
+three:
+    chantier_id: 133
+    personne_id: 2
+four:
+    chantier_id: 220
+    personne_id: 2 
+#
+# ----- EX1
+#   
+one_ex1:
+    chantier_id: 52
+    personne_id: 3
+two_ex1:
+    chantier_id: 27
+    personne_id: 3
+three_ex1:
+    chantier_id: 27
+    personne_id: 4
+four_ex1:
+    chantier_id: 52
+    personne_id: 4       
+

@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+locaux:
+  id: 26
+  nom: LOCAUX
+  exercice_id: 2
+  type_charge_id: 11
+info_tel_imp:
+  id: 24
+  nom: INFORMATIQUE
+  exercice_id: 2
+  type_charge_id: 9
+personnel:
+  id: 36
+  nom: PERSONNEL
+  exercice_id: 2
+  type_charge_id: 9  
+#
+# ---------- EX 1 -------
+#
+locaux_ex1:
+  id: 261
+  nom: LOCAUX
+  exercice_id: 1
+  type_charge_id: 111
+info_tel_imp_ex1:
+  id: 241
+  nom: INFORMATIQUE
+  exercice_id: 1
+  type_charge_id: 91
+personnel_ex1:
+  id: 361
+  nom: PERSONNEL
+  exercice_id: 1
+  type_charge_id: 91  

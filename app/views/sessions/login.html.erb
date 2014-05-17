@@ -1,0 +1,8 @@
+
+
+    <%= form_tag({action: 'login_attempt', method: :post}, {class: "form-signin"}) do %>
+      <h1 class="form-signin-heading"><%= image_tag('logo-Epsilim-150px.jpg') %></h1>
+      <%= text_field_tag(:login_name, nil, {class: 'form-control', placeholder: 'login', autofocus: '', autocomplete: 'off'}) %>
+      <%= password_field_tag(:login_password, nil, {class: 'form-control', placeholder: 'Password'}) %>
+      <%= submit_tag("Log In", {class: 'btn btn-lg btn-primary btn-block'}) %>
+  <% end %>

@@ -1,0 +1,177 @@
+dmpcp1:
+  chantier_id: 133
+  type_charge_id: 36
+  previ: true
+  montant: 10000
+  periode_debut: 2013-01-01
+  periode_fin: 2013-12-31
+dmpc2:
+  chantier_id: 133
+  type_charge_id: 36
+  previ: false
+  montant: 5000
+  paiement: 2013-07-01 
+  date_facturation: 2013-06-01
+  periode_debut: 2013-01-01
+  periode_fin: 2013-06-30
+dmpc3:
+  chantier_id: 133
+  type_charge_id: 24
+  previ: false
+  montant: 2500
+  paiement: 2013-07-01 
+  date_facturation: 2013-06-01
+  periode_debut: 2013-01-01
+  periode_fin: 2013-06-30
+dmpc4:
+  chantier_id: 133
+  type_charge_id: 24
+  previ: false
+  montant: 7625
+  paiement: 2013-12-31 
+  date_facturation: 2013-12-01
+  periode_debut: 2013-01-01
+  periode_fin: 2013-12-31
+dmpcp4:
+  chantier_id: 133
+  type_charge_id: 24
+  previ: true
+  montant: 12543
+  paiement: 2013-12-31 
+  date_facturation: 2013-12-01
+  periode_debut: 2013-01-01
+  periode_fin: 2013-12-31
+one:
+  id: 375
+  chantier_id: 220
+  type_charge_id: 24
+  previ: false
+  reception: 2013-01-11
+  fournisseur_id: 309
+  nature: Facture n° 011549 - Relevé de compteur 1er trimestre 2013
+  paiement: 2013-01-11
+  montant: 158.46
+  date_facturation: 2013-01-10
+  periode_debut: 2013-01-01
+  periode_fin: 2013-03-31
+two:
+  id: 388
+  chantier_id: 220
+  type_charge_id: 26
+  previ: false
+  reception: 2013-01-02
+  fournisseur_id: 369
+  nature: Facture n° 791 - Loyer 1er trimestre
+  paiement: 2013-01-14
+  montant: 23920
+  date_facturation: 2013-01-02
+  periode_debut: 2013-01-01
+  periode_fin: 2013-03-31
+twop:
+  chantier_id: 220
+  type_charge_id: 26
+  previ: true
+  fournisseur_id: 369
+  nature: Facture n° 791 - Loyer 1er trimestre
+  montant: 30000
+  periode_debut: 2013-01-01
+  periode_fin: 2013-12-31  
+three:
+  id: 389
+  chantier_id: 220
+  type_charge_id: 26
+  previ: false
+  reception: 2013-01-02
+  fournisseur_id: 369
+  nature: EDF
+  paiement: 2013-01-14
+  montant: 220.5
+  date_facturation: 2013-05-02
+  periode_debut: 2013-05-01
+  periode_fin: 2013-05-31  
+four:
+  id: 390
+  chantier_id: 220
+  type_charge_id: 26
+  previ: false
+  reception: 2013-01-02
+  fournisseur_id: 369
+  nature: EDF
+  paiement: 2013-01-14
+  montant: 120.2
+  date_facturation: 2013-04-02
+  periode_debut: 2013-04-01
+  periode_fin: 2013-04-30  
+
+#
+#----------- E X E R C I C E    1 -----------
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one_ex1:
+  id: 3751
+  chantier_id: 52
+  type_charge_id: 241
+  previ: false
+  reception: 2013-01-11
+  fournisseur_id: 3091
+  nature: Facture n° 011549 - Relevé de compteur 1er trimestre 2013
+  paiement: 2012-01-11
+  montant: 158.46
+  date_facturation: 2012-01-10
+  periode_debut: 2012-01-01
+  periode_fin: 2012-03-31
+two_ex1:
+  id: 3881
+  chantier_id: 52
+  type_charge_id: 261
+  previ: false
+  reception: 2013-01-02
+  fournisseur_id: 3691
+  nature: Facture n° 791 - Loyer 1er trimestre
+  paiement: 2012-01-14
+  montant: 23920
+  date_facturation: 2012-01-02
+  periode_debut: 2012-01-01
+  periode_fin: 2012-03-30
+three_ex1:
+  id: 3891
+  chantier_id: 52
+  type_charge_id: 261
+  previ: false
+  reception: 2012-01-02
+  fournisseur_id: 3691
+  nature: EDF
+  paiement: 2012-01-14
+  montant: 220.5
+  date_facturation: 2012-05-02
+  periode_debut: 2012-05-01
+  periode_fin: 2012-05-31  
+four_ex1:
+  id: 3901
+  chantier_id: 52
+  type_charge_id: 261
+  previ: false
+  reception: 2012-01-02
+  fournisseur_id: 3691
+  nature: EDF
+  paiement: 2012-01-14
+  montant: 120.2
+  date_facturation: 2012-04-02
+  periode_debut: 2012-04-01
+  periode_fin: 2012-04-30  
+five_ex1:
+  id: 3902
+  chantier_id: 52
+  type_charge_id: 361
+  previ: false
+  reception: 2012-01-01
+  fournisseur_id: 
+  nature: 
+  paiement: 2012-01-11
+  montant: 100000
+  date_facturation: 2012-01-01
+  periode_debut: 2012-01-01
+  periode_fin: 2012-06-30  
+

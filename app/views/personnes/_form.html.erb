@@ -1,0 +1,39 @@
+<%= form_for([@exercice, @personne], html: {class: "form-horizontal", role: "form"}) do |f| %>
+  <% if @personne.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@personne.errors.count, "error") %>
+        prohibited this personne from being saved:</h2>
+      <ul>
+        <% @personne.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!-- Formulaire du chantier -->
+  <%= hf_text_field(f, :nom) %>
+  <%= hf_text_field(f, :prenom) %>
+  <%= hf_text_field(f, :initiale) %>
+  <%= hf_text_field(f, :mail) %>
+
+  <%= hf_text_field(f, :username, {autocomplete: 'off'}) %>
+  <%= hf_password_field(f, :password) %>
+  <%= hf_password_field(f, :password_confirmation) %>
+
+  <%=hf_text_field(f, :tarif_vente) %>
+  <%=hf_text_field(f, :cout_reel) %>
+
+  <div class="form-group">
+<div class="col-sm-offset-2 col-sm-10">
+<% Epsilim::Application::ROLES.each do |item| %>
+<div class="radio">
+  <label>
+  <%= f.radio_button :roles, item %>
+   <%= item.capitalize %>
+ </label>
+</div>
+<% end %>
+</div>
+</div>
+  <%= hf_cancel_submit(f, exercice_personnes_path(@exercice)) %>
+<% end %>

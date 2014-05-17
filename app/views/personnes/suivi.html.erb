@@ -1,0 +1,27 @@
+<h1>Suivi pour <%= @personne.nom %> </h1>
+
+
+<% if @mois2 %>
+	<h1>Durée du <%= @mois %>/<%= @annee %> au  <%= @mois2 %>/<%= @annee2 %></h1>
+<% else %>
+	<h1>Durée du <%= @mois %>/<%= @annee %> </h1>
+
+<% end %>
+
+<h1>Chantier</h1>
+
+<%if @chantier %>
+	<h2>Suivi du chantier : <%= @chantier.code %></h2>
+<% else %>
+	<h2>Suivi des chantiers</h2>
+<% end %>
+
+<table>
+<% @suivi_activite.keys.each do |key|%>
+	<tr>
+		<td><%= key %></td>
+		<td><%= @suivi_activite[key] %></td>
+	</tr>  
+<% end %>
+</table>
+

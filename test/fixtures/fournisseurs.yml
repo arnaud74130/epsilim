@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: 369
+  nom: SCI du Pont St-Martial
+  contact: Gérard VALLERON
+  tel: 06 08 25 70 23
+  exercice_id: 2
+
+two:
+  id: 309
+  nom: Groupe JEAPI
+  contact: David DESNOS
+  tel: 06 85 55 28 71
+  email: ddesnos.desk@jeapi.fr
+  exercice_id: 2
+#
+# ------ EXERCICE 1 
+#
+one_ex1:
+  id: 3691
+  nom: SCI du Pont St-Martial
+  contact: Gérard VALLERON
+  tel: 06 08 25 70 23
+  exercice_id: 1
+
+two_ex1:
+  id: 3091
+  nom: Groupe JEAPI
+  contact: David DESNOS
+  tel: 06 85 55 28 71
+  email: ddesnos.desk@jeapi.fr
+  exercice_id: 1

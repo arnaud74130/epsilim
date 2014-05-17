@@ -1,0 +1,17 @@
+<%= form_for([@exercice, @type_financement], html: {class: "form-horizontal", role: "form"}) do |f| %>
+  <% if @type_financement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@type_financement.errors.count, "error") %> prohibited this type_financement from being saved:</h2>
+
+      <ul>
+      <% @type_financement.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<%= hf_text_field(f, :nom) %>
+<%= hf_text_field(f, :couleur) %>
+<%= hf_cancel_submit(f, exercice_type_financements_path(@exercice)) %>
+<% end %>

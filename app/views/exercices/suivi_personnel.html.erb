@@ -1,0 +1,42 @@
+<%= render "shared/bandeau",
+ titre: "Suivi Personnel",
+ texte: "Activité de l'ensemble du personnel" %>
+<div class="container">
+  <p id="notice"><%= notice %></p>
+  <%= render "shared/periode", path: suivi_personnel_exercice_path(@exercice) %>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr class="danger">
+        <th>
+          Nom</th>
+        <th>code chantier</th>
+        <th>Nombre de jours</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @all_personnes.each do |p_id, totaux| %>
+        <tr class="warning">
+          <th>
+            <%= Personne.find(p_id).full_name %></th>
+          <th>chantier</th>
+          <% t=0 %>
+            <% totaux.each do |code, total| %>
+            <% t = t + total %>
+            <% end %>
+          <th>Nombre de jours (<%= number_with_precision(t, precision: 2) %>)</th>
+        </tr>
+        <% totaux.each do |code, total| %>
+          <tr>
+            <td>
+            </td>
+            <td><%= code %>
+            </td>
+            <td><%= number_with_precision(total, precision: 2) %>
+            </td>
+          </tr>
+        <% end %>
+
+      </tbody>
+    <% end %>
+  </table>
+</div>

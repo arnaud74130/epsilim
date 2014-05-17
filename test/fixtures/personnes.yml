@@ -1,0 +1,60 @@
+cts:
+    id: 1
+    nom: TERMENS
+    prenom: Caroline
+    initiale: CTS
+    mail: caroline.termens@epsilim.fr
+    exercice_id: 2
+    tarif_vente: 500
+    cout_reel: 396
+    personne_id: 3
+    username: cts
+    roles: direction
+aga:
+    id: 2
+    nom: GARCIA
+    prenom: Arnaud
+    initiale: AGA
+    mail: arnaud.garcia@epsilim.fr
+    exercice_id: 2
+    tarif_vente: 700
+    cout_reel: 614
+    personne_id: 4
+    username: aga
+    roles: direction
+test:
+    id: 31
+    nom: TEST
+    prenom: Arnaud
+    initiale: TTT
+    mail: test@epsilim.fr
+    exercice_id: 2
+    tarif_vente: 500
+    cout_reel: 500
+    personne_id: 123
+    username: tst
+    roles: direction,cp
+
+#
+# ----- EXERCICE 1
+#
+cts_ex1:
+    id: 3
+    nom: TERMENS
+    prenom: Caroline
+    initiale: CTS
+    mail: caroline.termens@epsilim.fr
+    exercice_id: 1
+    tarif_vente: 500
+    username: cts_ex1
+aga_ex1:
+    id: 4
+    nom: GARCIA
+    prenom: Arnaud
+    initiale: AGA
+    mail: arnaud.garcia@epsilim.fr
+    exercice_id: 1
+    tarif_vente: 500
+    username: aga_ex1
+    
+

@@ -1,0 +1,13 @@
+<%= render "shared/bandeau", titre: "Type de charge ", texte: "Liste des informations associées au type de charge" %>
+<div class="container">
+  <p>
+    <strong>Type:</strong>
+    <%= @type_charge.nom %>
+  </p>
+  <p>
+    <strong>Poids:</strong>
+    <%= @type_charge.poids %>
+  </p>
+  <%= back exercice_type_charges_path(@exercice) %>
+  <%= edit edit_exercice_type_charge_path(@exercice, @type_charge) %>
+</div>

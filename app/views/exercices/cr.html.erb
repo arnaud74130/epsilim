@@ -1,0 +1,63 @@
+<%= render "shared/bandeau",
+ titre: "Compte de résultat",
+ texte: "Compte de résultat de l'ensemble des chantiers" %>
+<div class="container">
+<p id="notice"><%= notice %></p>
+<%= render "shared/periode", path: cr_exercice_path(@exercice) %>
+ <h3>Vue réelle</h3>
+ <div class="table-responsive">
+    <table class="table table-bordered table-striped table-condensed">
+      <thead>
+        <tr class="warning">
+          <th>Projet</th>
+          <th>Charges</th>
+          <th>Recettes</th>
+          <th>Soldes</th>
+          <th class="warning">Prévi</th>
+          <th class="warning">A valider</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @total_cr.except(
+          :total_recettes_previ, :total_recettes_a_valider, :total_charges_previ,
+          :total_recettes_facturees, :total_charges, :total_charges_reelles
+        ).each do |code, tarifs| %>
+        <tr>
+          <td><%= code %></td>
+          <td><%= number_to_currency(tarifs[:charges_reelles], precision: 2) %></td>
+          <td><%= number_to_currency(tarifs[:recettes_facturees], precision: 2) %></td>
+          <td><%= number_to_currency((tarifs[:recettes_facturees] - tarifs[:charges_reelles]), precision: 2) %></td>
+          <td class="warning"><%= number_to_currency(tarifs[:recettes_previ], precision: 2) %></td>
+          <td class="warning"><%= number_to_currency(tarifs[:recettes_a_valider], precision: 2) %></td>
+        </tr>
+        <% end %>
+        <tr>
+          <td>FONCTIONNEMENT</td>
+          <td><%= number_to_currency(@fonct_synthese[0][:total], precision: 2) %></td>
+          <td><%= number_to_currency(@fonct_synthese[1][:total], precision: 2) %></td>
+          <td><%= number_to_currency(@fonct_synthese[1][:total] - @fonct_synthese[0][:total], precision: 2)  %></td>
+          <td class="warning"></td>
+          <td class="warning"></td>
+        </tr>
+        <tr>
+          <td>HORS-PROJET</td>
+          <td><%= number_to_currency(@hp_synthese[0][:total], precision: 2) %></td>
+          <td><%= number_to_currency(@hp_synthese[1][:total], precision: 2) %></td>
+          <td><%= number_to_currency(@hp_synthese[1][:total] - @hp_synthese[0][:total], precision: 2) %></td>
+          <td class="warning"></td>
+          <td class="warning"></td>
+        </tr>
+        <tr>
+          <td><strong>TOTAL</strong></td>
+          <% tc =  @total_cr[:total_charges_reelles]+@fonct_synthese[0][:total] + @hp_synthese[0][:total] %>
+          <% tr =  @total_cr[:total_recettes_facturees] + @fonct_synthese[1][:total] + @hp_synthese[1][:total] %>
+          <td><%= number_to_currency(tc, precision: 2) %></td>
+          <td><%= number_to_currency(tr , precision: 2) %></td>
+          <td><STRONG><%= number_to_currency(tr-tc, precision: 2) %></STRONG></td>
+          <td class="warning"><%= number_to_currency(@total_cr[:total_recettes_previ], precision: 2) %></td>
+          <td class="warning"><%= number_to_currency(@total_cr[:total_recettes_a_valider], precision: 2) %></td>
+        </tr>
+      </tbody>
+     </table>
+   </div>
+</div>
