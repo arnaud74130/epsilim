@@ -15,8 +15,9 @@ Cette application web permet d'effectuer le suivi financier pour une société e
 * Création d'un exercice comptable initial 
 * Les types de charges et recettes obligatoires (charges de PERSONNEL, RECETTE FONCTIONNEMENT, HORS_PROJET)
 
-* Il suffit ensuite de lancer le serveur,
+* Il suffit ensuite de lancer le serveur
   * rails s
+  * http://localhost:3000
 
 == PASSAGE EN PRODUCTION
 
