@@ -1,7 +1,8 @@
 == PRESENTATION
 
 Cette application web permet d'effectuer le suivi financier pour une société en mode projet. Plus spécifiquement, lorsque l'activité des chefs de projet génère les recettes. Initialement créé pour le pilotage financier du GCS EPSILIM (Groupement de Coopération Sanitaire) le logiciel est mis à disposition à la communauté opensource sous la licence GNU GPL v3.
-![periode](https://github.com/arnaud74130/epsilim/raw/master/data/wiki/presentation.png)
+
+![presentation](https://github.com/arnaud74130/epsilim/raw/master/data/wiki/presentation.png)
 == INSTALLATION
 
 * Il suffit de récupérer l'application depuis github, puis de lancer le script : 
