@@ -13,7 +13,7 @@ Il faut installer ruby 2 et rails 4. Concernant l'installation de ruby, je vous 
   * vérifier en faisant ruby -v
   * sudo apt-get install nodejs
   * gem install bundler
-  * gem instal rails 4.0.0
+  * gem install rails 4.0.0
 
 === Initialisation
 * Il suffit de récupérer l'application depuis github, puis de lancer le script : 
