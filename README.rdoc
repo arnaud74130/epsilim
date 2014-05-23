@@ -4,7 +4,18 @@ Cette application web permet d'effectuer le suivi financier pour une société e
 
 
 == INSTALLATION
+=== Prérequis
+Il faut installer ruby 2 et rails 4. Concernant l'installation de ruby, je vous conseille rvm qui permet d'avoir plusieurs version de ruby et des gems (librairies) associées.
 
+  * Effacer l'ancien ruby: sudo apt-get purge ruby
+  * rvm install ruby 2.0.0
+  * rvm use 2.0.0 (parfois il faut faire avant /bin/bash --login )
+  * vérifier en faisant ruby -v
+  * sudo apt-get install nodejs
+  * gem install bundler
+  * gem instal rails 4.0.0
+
+=== Initialisation
 * Il suffit de récupérer l'application depuis github, puis de lancer le script : 
   * ./instal.sh
 
