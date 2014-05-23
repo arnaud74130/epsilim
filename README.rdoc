@@ -18,8 +18,8 @@ Il faut installer ruby 2 et rails 4. Concernant l'installation de ruby, je vous 
   * git clone https://github.com/arnaud74130/epsilim.git
 
 === Initialisation
-* Il suffit de récupérer l'application depuis github, puis de lancer le script : 
-  * ./instal.sh
+* Dans le répertoire des sources : 
+  * ./install.sh
 
 * L'installation lance l'initialisation nécessaire pour instancier l'application rails et le logiciel de suivi.
   * Création d'un compte utilisateur:
