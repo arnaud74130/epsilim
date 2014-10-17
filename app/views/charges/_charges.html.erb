@@ -12,7 +12,7 @@
 <table class="table table-bordered table-striped table-condensed table-hover">
   <thead>
     <tr class="success">
-      <td colspan="9"><strong><%= tc %></strong></td>
+      <td colspan="11"><strong><%= tc %></strong></td>
     </tr>
     <tr class="success">
       <th>ID</th>
@@ -22,6 +22,9 @@
       <th>Nature</th>
       <th>Paiement</th>
       <th width="100">Montant</th>
+      <th width="100">Coupure</th>
+      <th width="100">Cut-Off</th>
+
       <th>Début</th>
       <th>Fin</th>
     </tr>
@@ -38,6 +41,8 @@
     <td><%= charge.nature ? charge.nature : "-" %></td>
     <td><%= charge.paiement ? l(charge.paiement) : "-" %></td>
     <td><%= number_to_currency(charge.montant, unit: "€") %></td>
+    <td><%= number_to_currency(charge.coupure(@periode_debut, @periode_fin), unit: "€")%></td>
+    <td><%= number_to_currency(charge.cut_off(@periode_debut, @periode_fin), unit: "€")%></td>
     <td><%= charge.periode_debut ? l(charge.periode_debut) : "-"%></td>
     <td><%= charge.periode_fin ? l(charge.periode_fin) : "-"%></td>
   </tr>

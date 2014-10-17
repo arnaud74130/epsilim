@@ -151,14 +151,17 @@ class Exercice < ActiveRecord::Base
   end
 
   # Retourne le total de la contribution des chantiers pour le fonctionnement/hp
-  def total_contribution(nom="fonctionnement")
+  def total_contribution(nom="fonctionnement", debut=nil, fin=nil)
+    debut ||= self.debut.to_fr
+    fin ||= self.fin.to_fr
+    
     chantiers_projets = self.chantiers.where(type_chantier: 'projet')
 
     # -- totalité des contributions aux fonctionnements
     contrib = chantiers_projets.inject({total: 0}) do |sum, cf|
 
-      v = cf.jours_consommes[:total]*self.contribution_fonct if nom=="fonctionnement"
-      v = cf.jours_consommes[:total]*self.contribution_hors_projet if nom=="hors_projet"
+      v = cf.jours_consommes(debut, fin)[:total]*self.contribution_fonct if nom=="fonctionnement"
+      v = cf.jours_consommes(debut, fin)[:total]*self.contribution_hors_projet if nom=="hors_projet"
       sum[:total] = sum[:total] + v
       sum[cf.code] ||=0
       sum[cf.code] = sum[cf.code] + v
@@ -166,4 +169,6 @@ class Exercice < ActiveRecord::Base
     end
     contrib
   end
+
+
 end

@@ -1,6 +1,6 @@
 #     EPSILIM - Suivi Financier
 #     Copyright (C) 2014  Arnaud GARCIA - GCS EPSILIM
-#                         
+#
 #     This program is free software: you can redistribute it and/or modify
 #     it under the terms of the GNU General Public License as published by
 #     the Free Software Foundation, either version 3 of the License, or
@@ -22,6 +22,27 @@ class Charge < ActiveRecord::Base
 
   default_scope {order('paiement DESC')}
 
+  def coupure(pdebut, pfin)
+
+    if self.montant && pdebut && pfin && self.periode_debut && self.periode_fin
+      if self.periode_fin > pfin
+        delta = pfin.to_datetime - self.periode_debut.to_datetime
+        duree =self.periode_fin.to_datetime - self.periode_debut.to_datetime
+        p=delta.to_f/duree
+        prix = self.montant * p
+      else
+        prix = self.montant
+      end
+    else
+      0
+    end
+  end
+
+  def cut_off(pdebut, pfin)
+    if pdebut && pfin
+      self.montant - self.coupure(pdebut, pfin)
+    end
+  end
   #-- exercice
 
   validates :montant, :presence => true
