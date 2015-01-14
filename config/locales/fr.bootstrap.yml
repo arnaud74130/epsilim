@@ -11,6 +11,9 @@ fr:
       edit: "Modifier"
       show: "Voir"
       activite: "Activité"
+      charges: "Charges"
+      Recettes: "Recettes"
+      CR: "CR"
     titles:
       edit: "Modifier"
       save: "Sauver"
