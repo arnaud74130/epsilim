@@ -64,12 +64,14 @@ class ChantierTest < ActiveSupport::TestCase
 	end
 
 	test "recettes facturees sur une periode pour le fonctionnement" do
-		fonct = chantiers(:fonct)
-		#jours_consommes("01/01/2013","01/03/2013") ==> {:total=>4.5, "CTS"=>2.5, "AGA"=>2.0}
+		fonct = chantiers(:fonct)		
 		r = fonct.total_recettes_facturees("01/01/2013","01/03/2013")		
-		assert_equal_float (2.5*396+2*614),r[:total], "recettes fonctionnement sur une période [FONCT]"
-		assert_equal_float (2.5*396+2*614),r[:total_contribution], "Contribution recettes fonctionnement sur une période [FONCT]"
-		#TODO ajouter des recettes autres que personnel pour vérifier correctement
+		# 0.25j de DMP,  contribution projet 129.75 => 32.4375, 1 recette de 61500*59/364=9968.406
+
+		#FIXME : La contribution ne se proratise pas !
+		assert_equal_float (0.25*129.75),r[:total_contribution], "Contribution recettes fonctionnement sur une période [FONCT]"
+		# on ajoute les recettes manuelles qui seront au prorata
+		assert_equal_float (0.25*129.75+9968.406),r[:total], "recettes fonctionnement sur une période [FONCT]"
 		
 	end
 
@@ -99,16 +101,20 @@ class ChantierTest < ActiveSupport::TestCase
 		assert_equal 158.46, charges["INFORMATIQUE"], "charges informatique [FONCTIONNEMENT]"	
 	end
 
-	test "charges personnel" do
+	test "charges personnel vue financeur" do
+		dmp = chantiers(:dmp)
+		charges = dmp.total_charges		
+		assert_equal 1.25*500+5000, charges["PERSONNEL_FINANCEUR"], "charges personnel vue financeur, [DMP]"	
+	end
+
+
+	test "charges personnel réelle" do
 		dmp = chantiers(:dmp)
 		charges = dmp.total_charges
-		#FIXME total faux, les charges personnel hors activité (5000) sont ajoutée dans le total => 5000 de trop	
-		assert_equal 1.25*500+5000, charges["PERSONNEL"], "charges personnel vue financeur, [DMP]"	
 		#FIXME personnel réelle faux, les charges personnel hors activité 5000 ne sont pas pris en compte
-		assert_equal 1.25*(396+129.75+50.84)+5000, charges["PERSONNEL_REELLE"], "Total des charges réelles de personnel, [DMP]"
-	
+		assert_equal 1.25*(396+129.75+50.84)+5000, charges["PERSONNEL_REELLE"], "Total des charges réelles de personnel, [DMP]"	
 	end
-	
+
 	test "total des charges" do
 		dmp = chantiers(:dmp)
 		charges = dmp.total_charges
@@ -129,7 +135,7 @@ class ChantierTest < ActiveSupport::TestCase
 		dmp = chantiers(:dmp)
 		p=(91-1).to_f/(181-1)
 		charges = dmp.total_charges("01/01/2013","01/04/2013")		
-		assert_equal_float (0.25*500+5000*p), charges["PERSONNEL"], "Charges de personnel sur période, [DMP]"
+		assert_equal_float (0.25*500+5000*p), charges["PERSONNEL_FINANCEUR"], "Charges de personnel sur période, [DMP]"
 		assert_equal_float (0.25*(396+129.75+50.84)+5000*p), charges["PERSONNEL_REELLE"], "Charges de personnel réelles sur période, [DMP]"
 	end
 

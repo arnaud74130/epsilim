@@ -49,6 +49,8 @@ fonct1:
     type_recette_id: 4
     emission: 2013-01-01
     facturation: 2013-01-01    
+    periode_debut: 2013-01-01
+    periode_fin: 2013-12-31          
     mode: facturee       
     montant: 61500 
 fonct2:

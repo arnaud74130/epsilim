@@ -34,7 +34,7 @@ class ExericeTest < ActiveSupport::TestCase
 	test "total contribution sur une période" do
 		ex=exercices(:two)
 
-		assert_equal_float 0.25*129.75, ex.total_contribution("fonctionnement","01/01/2013","30/01/2013")[:total],"Total contribution fonctionnement sur une période"
+		assert_equal_float 0.25*129.75, ex.total_contribution("fonctionnement","01/01/2013","30/01/2013")[:total],"Total contribution fonctionnement sur une période"		
 		assert_equal_float 0.25*50.84, ex.total_contribution("hors_projet", "01/01/2013","30/01/2013")[:total],"Total contribution hors projet sur une période"
 	end
 	test "total des charges fonct_hp" do

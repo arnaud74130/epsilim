@@ -27,7 +27,7 @@ class FinancesController < ApplicationController
     @periode_debut, @periode_fin = extraction_periode
     @total_charges_previ=@chantier.total_charges_previ(retourner_les_charges)
     @total_charges=@chantier.total_charges(@periode_debut.to_fr, @periode_fin.to_fr, retourner_les_charges)
-    @les_tc = @total_charges.except(:total, :total_reel, :liste, :jours, 'PERSONNEL_REELLE', 'ACTIVITE_PERSONNEL').keys << @total_charges_previ.except(:total, :liste).keys   
+    @les_tc = @total_charges.except(:total, :total_reel, :liste, :jours, 'PERSONNEL_REELLE','PERSONNEL_MANUELLE','PERSONNEL_FINANCEUR', 'ACTIVITE_PERSONNEL').keys << @total_charges_previ.except(:total, :liste).keys   
     @les_tc = @les_tc.flatten.compact.uniq
     @les_tc = @les_tc.flatten.compact.uniq.sort_by {|elt| @exercice.type_charges.where(nom: elt).first.poids}    
   end

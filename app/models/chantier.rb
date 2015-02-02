@@ -73,11 +73,21 @@ class Chantier < ActiveRecord::Base
         sum
       end
     end
-    paquet[:total_reel] = paquet[:total]
+    
 
     # Ajout des charges de PERSONNEL liées à l'activité.
-    paquet['PERSONNEL'] ||= 0
-    paquet['PERSONNEL_REELLE']= 0
+
+    paquet['PERSONNEL'] ||=0
+    # on régularise car on ajoute les charges manuelles de personnel dans la rubrique FINANCEUR ou REELLE
+    paquet[:total] = paquet[:total] - paquet['PERSONNEL']
+    paquet[:total_reel] = paquet[:total]
+
+
+    paquet['PERSONNEL_FINANCEUR'] =  paquet['PERSONNEL']
+    paquet['PERSONNEL_REELLE']= paquet['PERSONNEL']
+    paquet['PERSONNEL_MANUELLE']= paquet['PERSONNEL']
+    paquet['PERSONNEL'] = 0 # cela sert uniquement d'indicateur dans la synthese des charges...
+
      paquet['ACTIVITE_PERSONNEL'] = {}
     activite_consommees=self.jours_consommes(debut,fin)
     paquet[:jours]= activite_consommees[:total]
@@ -85,7 +95,7 @@ class Chantier < ActiveRecord::Base
       activite_consommees.except(:total).each do |initiale, jours|
 
         p = self.exercice.personnes.where(initiale: initiale).first
-        paquet['PERSONNEL'] = paquet['PERSONNEL'] + jours*p.tarif_vente.to_f
+        paquet['PERSONNEL_FINANCEUR'] = paquet['PERSONNEL_FINANCEUR'] + jours*p.tarif_vente.to_f
         paquet['ACTIVITE_PERSONNEL'].merge!({initiale => jours})
         paquet['PERSONNEL_REELLE'] = paquet['PERSONNEL_REELLE'] + jours*p.cout_reel.to_f
         if self.prendre_taxes
@@ -93,7 +103,7 @@ class Chantier < ActiveRecord::Base
         end
       end
 
-      paquet[:total]=paquet[:total] + paquet['PERSONNEL']
+      paquet[:total]=paquet[:total] + paquet['PERSONNEL_FINANCEUR']
       paquet[:total_reel]=paquet[:total_reel] + paquet['PERSONNEL_REELLE']
     end
     if retourner_les_charges
@@ -146,6 +156,7 @@ class Chantier < ActiveRecord::Base
     paquet
   end
 
+  #FIXME appel la fonction update_recettes_contribution qui ne prend pas les dates !
   def total_recettes_facturees(debut=nil, fin=nil, retourner_les_recettes=false)
     debut ||= self.exercice.debut.to_fr
     fin ||= self.exercice.fin.to_fr
