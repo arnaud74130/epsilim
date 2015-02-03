@@ -5,10 +5,22 @@ namespace :rapport_activite do
     ex=Exercice.find_by_code(args.exercice.to_i)
 
     recettes_charges_type(ex)
-    nbr_jours_type_chantier(ex)
-    synthese_charges_chantiers(ex)
-    synthese_recettes_chantiers(ex)
+    nb_projet=nbr_jours_type_chantier(ex)
+    ch_p, ch_fct, ch_hp=synthese_charges_chantiers(ex)
+    r_fct, r_hp = synthese_recettes_chantiers(ex)
+    delta_fct= ch_fct-r_fct
+    delta_hp= ch_hp-r_hp
+    contrib_fct=delta_fct/nb_projet
+    contrib_hp=delta_hp/nb_projet
+    puts " --- CONTRIBUTION FONCTIONNEMENT et HORS_PROJET---"
+    puts "La part de la contribution pour le fonctionnement est de #{number_to_currency(delta_fct, unit: "€")}"
+    puts "La part de la contribution pour le hors_projet est de #{number_to_currency(delta_hp, unit: "€")}"
+    puts "Le nombre de jours projet est de #{nb_projet}"
+    puts "Soit une contribution fonctionnement de #{number_to_currency(contrib_fct, unit: "€")}"
+    puts "Soit une contribution fonctionnement de #{number_to_currency(contrib_hp, unit: "€")}"
 
+    puts ""
+    puts "Les charges projet sont passées par conséquent de #{number_to_currency(ch_p, unit: "€")} à #{number_to_currency(ch_p+delta_fct+delta_hp, unit: "€")}"
   end
 
   def synthese_recettes_chantiers(ex)
@@ -31,7 +43,7 @@ namespace :rapport_activite do
     puts "         MISSION          : #{number_to_currency(cm['PERSONNEL'], unit: "€")}"
     puts "         FONCTIONNEMENT   : #{number_to_currency(cf['PERSONNEL'], unit: "€")}"
     puts "         HORS_PROJET      : #{number_to_currency(chp['PERSONNEL'], unit: "€")}"
-
+    return cf[:total], chp[:total]
   end
 
   def recettes_chantier_type(ex, chantier_type)
@@ -51,7 +63,7 @@ namespace :rapport_activite do
     cm=charges_chantier_type(ex, 'mission')
     cf=charges_chantier_type(ex, 'fonctionnement')
     chp=charges_chantier_type(ex, 'hors_projet')
-    
+
     ex.contribution_hors_projet==0
     ex.contribution_fonct==0.0
 
@@ -70,7 +82,7 @@ namespace :rapport_activite do
     puts "         MISSION          : #{number_to_currency(cm['PERSONNEL_REELLE'], unit: "€")} dont mises à disposition #{number_to_currency(cm['PERSONNEL_MANUELLE'], unit: "€")}"
     puts "         FONCTIONNEMENT   : #{number_to_currency(cf['PERSONNEL_REELLE'], unit: "€")} dont mises à disposition #{number_to_currency(cf['PERSONNEL_MANUELLE'], unit: "€")}"
     puts "         HORS_PROJET      : #{number_to_currency(chp['PERSONNEL_REELLE'], unit: "€")} dont mises à disposition #{number_to_currency(chp['PERSONNEL_MANUELLE'], unit: "€")}"
-
+    return cp[:total_reel], cf[:total_reel], chp[:total_reel]
   end
 
   def charges_chantier_type(ex, chantier_type)
@@ -87,20 +99,32 @@ namespace :rapport_activite do
     puts "--- RECETTES FACTURÉES"
     ex.type_financements.each do |tf|
       mf=Recette.where(type_financement: tf, mode: "facturee").inject(0){|sum, r| sum = sum + r.montant}.to_f
-      puts "          #{tf.nom} en #{tf.exercice.nom} est #{number_to_currency(mf, unit: "€")}"
+      puts "          #{tf.nom} en #{tf.exercice.nom} est #{number_to_currency(mf, unit: "€")}"  unless mf==0
     end
 
     puts "--- RECETTES A VALIDER"
     ex.type_financements.each do |tf|
-      mf=Recette.where(type_financement: tf, mode: "a_valider").inject(0){|sum, r| sum = sum + r.montant}.to_f
-      puts "          #{tf.nom} en #{tf.exercice.nom} est #{number_to_currency(mf, unit: "€")}"
+      mf=Recette.where(type_financement: tf, mode: "a_valider").inject(0){|sum, r| sum = sum + r.montant}.to_f      
+      puts "          #{tf.nom} en #{tf.exercice.nom} est #{number_to_currency(mf, unit: "€")}" unless mf==0
     end
 
-    puts "--- CHARGES ---"
+    puts "--- CHARGES PAR PÔLE---"
+    type_charges_pole(ex, 'projet')
+    type_charges_pole(ex, 'mission')    
+    type_charges_pole(ex, 'fonctionnement')
+    type_charges_pole(ex, 'hors_projet')
+
+
+  end
+  def type_charges_pole(ex, pole)
+    puts "  [#{pole.upcase}]"
     ex.type_charges.each do |tf|
       unless tf.nom=="PERSONNEL"
-        mf=Charge.where(type_charge: tf, previ: false).inject(0){|sum, r| sum = sum + r.montant}.to_f
-        puts "          #{tf.nom} en #{tf.exercice.nom} est #{number_to_currency(mf, unit: "€")}"
+        total_tf=0.0
+        ex.chantiers.where(type_chantier: pole).each do |c|                    
+          total_tf=total_tf+c.charges.where(type_charge: tf).inject(0){|sum,ch| sum=sum+ch.coupure(ex.debut,ex.fin)}
+        end
+        puts "          #{tf.nom} est #{number_to_currency(total_tf, unit: "€")}" unless total_tf==0
       end
     end
   end
@@ -118,6 +142,6 @@ namespace :rapport_activite do
     puts "          Projet            : #{nbj_p} j"
     puts "          Mission           : #{nbj_m} j"
     puts "          Congés            : #{nbj_c} j"
-
+    nbj_p
   end
 end
