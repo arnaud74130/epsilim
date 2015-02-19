@@ -3,9 +3,13 @@ namespace :rapport_activite do
   desc "rake rapport_activite:exercice[2014]"
   task :exercice, [:exercice] => :environment  do |task, args|
     ex=Exercice.find_by_code(args.exercice.to_i)
+    b_contrib_hp=ex.contribution_hors_projet
+    b_contrib_fct=ex.contribution_fonct
+    ex.contribution_fonct=0
     ex.contribution_hors_projet=0
-    ex.contribution_fonct=0.0
+    ex.save
     
+  
     nb_projet=nbr_jours_type_chantier(ex)
     
     recettes_charges_type(ex)
@@ -26,7 +30,8 @@ namespace :rapport_activite do
     type_charges_pole(ex, 'fonctionnement')
     type_charges_pole(ex, 'hors_projet')
 
-
+    type_charges(ex)
+    
     puts " --- CONTRIBUTION FONCTIONNEMENT et HORS_PROJET---"
     puts "La part de la contribution pour le fonctionnement est de #{number_to_currency(delta_fct, unit: "€")}"
     puts "La part de la contribution pour le hors_projet est de #{number_to_currency(delta_hp, unit: "€")}"
@@ -36,6 +41,11 @@ namespace :rapport_activite do
 
     puts ""
     puts "Les charges projet sont passées par conséquent de #{number_to_currency(ch_p, unit: "€")} à #{number_to_currency(ch_p+delta_fct+delta_hp, unit: "€")}"
+    #restore values
+    ex.contribution_fonct=b_contrib_fct
+    ex.contribution_hors_projet=b_contrib_hp
+    ex.save
+
   end
 
   def synthese_recettes_chantiers(ex)
@@ -128,6 +138,31 @@ namespace :rapport_activite do
       unless tf.nom=="PERSONNEL"
         total_tf=0.0
         ex.chantiers.where(type_chantier: pole).each do |c|                    
+          total_tf=total_tf+c.charges.where(type_charge: tf, previ: false).where('periode_debut >= ?', periode_debut).where('periode_debut <= ?', periode_fin).inject(0) do |sum,ch| 
+            sum=sum+ch.coupure(ex.debut,ex.fin)
+            if ch.coupure(ex.debut,ex.fin)==-Float::INFINITY
+              puts "ERROR sur la charge id= #{ch.id}"
+            end
+            sum
+          end
+
+        end
+        puts "          #{tf.nom} = #{number_to_currency(total_tf, unit: "€")}" unless total_tf==0        
+        t=t+total_tf
+      end
+    end
+    puts "                ==>Total = #{number_to_currency(t, unit: "€")}"
+  end
+
+  def type_charges(ex) 
+  puts " ======= TYPE DE CHARGE ============"   
+    t=0.0
+    periode_debut=ex.debut
+    periode_fin=ex.fin
+    ex.type_charges.each do |tf|
+      unless tf.nom=="PERSONNEL"
+        total_tf=0.0
+        ex.chantiers.each do |c|                    
           total_tf=total_tf+c.charges.where(type_charge: tf, previ: false).where('periode_debut >= ?', periode_debut).where('periode_debut <= ?', periode_fin).inject(0) do |sum,ch| 
             sum=sum+ch.coupure(ex.debut,ex.fin)
             if ch.coupure(ex.debut,ex.fin)==-Float::INFINITY
