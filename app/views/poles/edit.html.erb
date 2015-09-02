@@ -1,0 +1,5 @@
+<%= render "shared/bandeau", titre: "Modification du pôle pour l'exercice #{@exercice.nom}", texte: "Mise à jour" %>
+<div class="container">
+  <%= render 'form' %>
+  <%= destroy [@exercice, @pole] %>
+</div>

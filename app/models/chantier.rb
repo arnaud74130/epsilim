@@ -39,6 +39,8 @@ class Chantier < ActiveRecord::Base
 
   has_many :recettes
 
+  belongs_to :pole
+
   def type_charge_personnel
     self.type_charges.where(nom: 'PERSONNEL').first
   end

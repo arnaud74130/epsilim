@@ -138,6 +138,6 @@ class ExercicesController < ApplicationController
       params[:exercice][:contribution_hors_projet]=params[:exercice][:contribution_hors_projet].from_money
     end
 
-    params.require(:exercice).permit(:nom, :code, :debut, :fin, :deb_periode, :fin_periode, :contribution_fonct, :contribution_hors_projet)
+    params.require(:exercice).permit(:nom, :code, :debut, :fin, :deb_periode, :fin_periode, :contribution_fonct, :contribution_hors_projet, :nb_jours)
   end
 end

@@ -1,0 +1,30 @@
+<%= render "shared/bandeau_new",
+ titre: "Type de Pôle: #{@exercice.nom}",
+ texte: "Liste des pôles",
+ path: new_exercice_pole_path(@exercice) %>
+
+<div class="container">
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Libelle</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @poles.each do |pole| %>
+      <tr>
+          <td><%= link_to pole.id, [@exercice, pole] %></td>
+          <td><%= pole.libelle %></td>
+
+          <td><%= edit edit_exercice_pole_path(@exercice, pole) %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+

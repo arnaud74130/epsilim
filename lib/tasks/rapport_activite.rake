@@ -9,6 +9,34 @@ namespace :rapport_activite do
     ex.contribution_hors_projet=0
     ex.save
     
+    # ----- ETP par POLE ---
+    ETP={}
+    ex.personnes.each do |p|
+      unless p.suivi.empty?        
+        tj = ex.nb_jours - p.suivi['CONGES']        
+        p.suivi.except('CONGES').each do |code, nb|
+          c = ex.chantiers.where(code: code).first
+          ETP[c.pole] = 0 unless ETP[c.pole]
+          ETP[c.pole] = ETP[c.pole] + nb/tj      
+        end
+      end
+    end
+    puts "--- Nombre d'ETP par pôle"
+    total_etp =0.0
+    ex.poles.each do |p|
+      puts "   #{p.libelle}, #{ETP[p]} ETP"
+      total_etp = total_etp + ETP[p] if ETP[p]
+    end
+    puts "   ==> total ETP salariés (sans mise à disposition) en #{ex.code} = #{total_etp} "
+
+    puts "---- Recettes par PÔLE ---"
+    total_recettes_pole = 0
+    ex.poles.each do |p|
+      r = recettes_chantier_pole(ex,p)
+      puts "   #{p.libelle}  total recettes = #{number_to_currency(r, unit: "€")}"
+      total_recettes_pole = total_recettes_pole + r
+    end
+    puts "   ==> total des recettes des pôles = #{number_to_currency(total_recettes_pole, unit: "€")}"
   
     nb_projet=nbr_jours_type_chantier(ex)
     
@@ -29,6 +57,9 @@ namespace :rapport_activite do
     type_charges_pole(ex, 'mission')    
     type_charges_pole(ex, 'fonctionnement')
     type_charges_pole(ex, 'hors_projet')
+
+  puts "--- CHARGES PERSONNEL PAR POLE"
+    synthese_charges_chantiers_pole(ex)
 
     type_charges(ex)
     
@@ -105,6 +136,16 @@ namespace :rapport_activite do
     return cp[:total_reel], cf[:total_reel], chp[:total_reel]
   end
 
+  def synthese_charges_chantiers_pole(ex)  
+    total = 0      
+    etp = 0
+    ex.poles.each do |pole|
+      c = charges_chantier_pole(ex, pole)
+      puts "         #{pole.libelle}           : #{number_to_currency(c['PERSONNEL_REELLE']+c['PERSONNEL_MANUELLE'], unit: "€")} "
+      total = total + c['PERSONNEL_REELLE']      
+    end
+    puts "         => TOTAL #{number_to_currency(total, unit: "€")} pour #{etp} ETP"
+  end
   def charges_chantier_type(ex, chantier_type)
     cp=ex.chantiers.where(type_chantier: chantier_type).inject({:total_reel => 0.0,"PERSONNEL_REELLE" => 0.0, "PERSONNEL_MANUELLE" => 0.0}) do |sum, c|
       sum[:total_reel] = sum[:total_reel] + c.total_charges[:total_reel] if c.total_charges[:total_reel]
@@ -115,6 +156,22 @@ namespace :rapport_activite do
     cp
   end
 
+ def charges_chantier_pole(ex, pole)
+    cp=ex.chantiers.where(pole: pole).inject({:total_reel => 0.0,"PERSONNEL_REELLE" => 0.0, "PERSONNEL_MANUELLE" => 0.0}) do |sum, c|
+      sum[:total_reel] = sum[:total_reel] + c.total_charges[:total_reel] if c.total_charges[:total_reel]
+      sum['PERSONNEL_REELLE'] = sum['PERSONNEL_REELLE'] + c.total_charges['PERSONNEL_REELLE'] if c.total_charges['PERSONNEL_REELLE']
+      sum['PERSONNEL_MANUELLE'] = sum['PERSONNEL_MANUELLE'] + c.total_charges['PERSONNEL_MANUELLE'] if c.total_charges['PERSONNEL_MANUELLE']
+      sum
+    end
+    cp
+  end
+  def recettes_chantier_pole(ex, pole)
+    cp=ex.chantiers.where(pole: pole).inject(0) do |sum, c|
+      sum = sum + c.total_recettes_facturees[:total]
+      sum
+    end
+    
+  end
   def recettes_charges_type(ex)
     puts "--- TYPE DE FINANCEMENT (RECETTES FACTURÉES) [#{ex.nom}]"
     ex.type_financements.each do |tf|
@@ -128,7 +185,6 @@ namespace :rapport_activite do
       puts "          #{tf.nom} en #{tf.exercice.nom} = #{number_to_currency(mf, unit: "€")}" unless mf==0
     end
   end
-
   def type_charges_pole(ex, pole)
     puts "  [#{pole.upcase}]"
     t=0.0

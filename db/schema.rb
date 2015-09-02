@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140210161727) do
+ActiveRecord::Schema.define(version: 20150902130543) do
 
   create_table "activites", force: true do |t|
     t.integer  "personne_id"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20140210161727) do
     t.integer  "chantier_id"
     t.boolean  "prendre_taxes", default: true
     t.string   "type_chantier", default: "projet"
+    t.integer  "pole_id"
   end
 
   create_table "charges", force: true do |t|
@@ -79,9 +80,9 @@ ActiveRecord::Schema.define(version: 20140210161727) do
     t.date     "fin"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "charge_personnel_jour",    default: true
     t.decimal  "contribution_fonct",       default: 0.0
     t.decimal  "contribution_hors_projet", default: 0.0
+    t.integer  "nb_jours"
   end
 
   create_table "fournisseurs", force: true do |t|
@@ -110,6 +111,13 @@ ActiveRecord::Schema.define(version: 20140210161727) do
     t.string   "username"
     t.string   "roles"
     t.decimal  "cout_reel",          default: 0.0
+  end
+
+  create_table "poles", force: true do |t|
+    t.string   "libelle"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "exercice_id"
   end
 
   create_table "recettes", force: true do |t|

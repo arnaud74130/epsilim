@@ -96,12 +96,13 @@ class ChantiersController < FinancesController
     @personnes = @exercice.personnes
     @type_charges = @exercice.type_charges
     @type_recettes = @exercice.type_recettes
+    @poles = @exercice.poles
 
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def chantier_params
-    params.require(:chantier).permit(:exercice_id, :numero, :code, :libelle, :statut, :debut, :fin, :personne_ids, :type_charge_ids, :type_recette_ids, :prendre_taxes, :type_chantier)
+    params.require(:chantier).permit(:exercice_id, :numero, :code, :libelle, :statut, :debut, :fin, :personne_ids, :type_charge_ids, :type_recette_ids, :prendre_taxes, :type_chantier, :pole_id)
   end
 
   def add_personnes_tc_tr_to_chantier

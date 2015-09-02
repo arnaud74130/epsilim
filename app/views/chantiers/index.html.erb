@@ -16,9 +16,7 @@
           <th>Numéro</th>
           <th>Code</th>
           <th>Libéllé</th>
-          <th>Statut</th>
-          <th>Début</th>
-          <th>Fin</th>
+          <th>Pôle</th>
           <th></th>
           <th></th>
         </tr>
@@ -34,9 +32,7 @@
             <td><%= chantier.numero %></td>
             <td><%= link_to chantier.code, exercice_chantier_path(@exercice,chantier)%></td>
             <td><%= chantier.libelle %></td>
-            <td><%= chantier.statut %></td>
-            <td><%= chantier.debut ? l(chantier.debut) : "-" %></td>
-            <td><%= chantier.debut ? l(chantier.fin) : "-" %></td>
+            <td><%= chantier.pole ? chantier.pole.libelle : "-" %></td>
             <td>
               <%= link_button(exercice_chantier_charges_path(@exercice, chantier), {class: 'btn btn-primary btn-small'}, roles, "charges") %>
             </td>

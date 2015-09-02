@@ -16,6 +16,9 @@
   <%= hf_number_field(f, :numero) %>
   <%= hf_text_field(f, :code) %>
   <%= hf_text_field(f, :libelle) %>
+
+  <%= hf_select_with_collection f, :pole_id, options_from_collection_for_select(@poles, 'id', 'libelle', @chantier.pole_id) %>
+
   <% ["projet", "fonctionnement", "hors_projet", "mission", "conges"].each do |item| %>
 <div class="radio">
   <label>

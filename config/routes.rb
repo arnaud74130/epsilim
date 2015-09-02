@@ -1,8 +1,10 @@
 Epsilim::Application.routes.draw do
 
+  resources :poles
+
   root :to => "sessions#login"
   get "login", :to => "sessions#login"
-  post "login_attempt", :to => "sessions#login_attempt"  
+  post "login_attempt", :to => "sessions#login_attempt"
   get "logout", :to => "sessions#logout"
   #get "home", :to => "sessions#home"
 
@@ -12,7 +14,6 @@ Epsilim::Application.routes.draw do
     get 'suivi_personnel', :on => :member
     get 'a_valider', :on => :member
     get 'suivi_fonds', :on => :member
-    
   end
 
   resources :exercices do
@@ -26,6 +27,7 @@ Epsilim::Application.routes.draw do
   resources :exercices do
     resources :type_charges
     resources :type_recettes
+    resources :poles
   end
 
 

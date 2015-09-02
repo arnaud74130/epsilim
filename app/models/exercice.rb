@@ -21,6 +21,7 @@ class Exercice < ActiveRecord::Base
   has_many :type_recettes
   has_many :type_financements
   has_many :fournisseurs
+  has_many :poles
   has_one :total_fonct_hp
 
   def regroupement_recettes_fonds

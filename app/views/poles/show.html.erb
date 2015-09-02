@@ -1,0 +1,9 @@
+<%= render "shared/bandeau", titre: "Pôle de l'exercice #{@exercice.code}", texte: "Liste des informations associées au pôle." %>
+<div class="container">
+  <p>
+    <strong>Pole:</strong>
+    <%= @pole.libelle %>
+  </p>
+  <%= back exercice_poles_path(@exercice) %>
+  <%= edit edit_exercice_pole_path(@exercice, @pole) %>
+</div>

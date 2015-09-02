@@ -18,6 +18,10 @@
     <%= @chantier.libelle %>
   </p>
   <p>
+    <strong>Pôle:</strong>
+    <%= @chantier.pole.libelle if @chantier.pole %>
+  </p>
+  <p>
     <strong>Prendre les taxes (Fonctionnement / Hors Projet):</strong>
     <%= @chantier.prendre_taxes %>
   </p>

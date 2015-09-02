@@ -1,0 +1,17 @@
+<%= form_for([@exercice, @pole] , html: {class: "form-horizontal", role: "form"}) do |f| %>
+  <% if @pole.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pole.errors.count, "error") %> prohibited this pole from being saved:</h2>
+
+      <ul>
+      <% @pole.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+   <%= hf_text_field(f, :libelle) %>
+  <%= hf_cancel_submit(f, exercice_poles_path(@exercice)) %>
+
+<% end %>
