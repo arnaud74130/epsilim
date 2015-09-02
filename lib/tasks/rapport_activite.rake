@@ -8,7 +8,7 @@ namespace :rapport_activite do
     ex.contribution_fonct=0
     ex.contribution_hors_projet=0
     ex.save
-    
+
     # ----- ETP par POLE ---
     ETP={}
     ex.personnes.each do |p|
@@ -21,48 +21,30 @@ namespace :rapport_activite do
         end
       end
     end
-    puts "--- Nombre d'ETP par pôle"
-    total_etp =0.0
-    ex.poles.each do |p|
-      puts "   #{p.libelle}, #{ETP[p]} ETP"
-      total_etp = total_etp + ETP[p] if ETP[p]
-    end
-    puts "   ==> total ETP salariés (sans mise à disposition) en #{ex.code} = #{total_etp} "
 
-    puts "---- Recettes par PÔLE ---"
-    total_recettes_pole = 0
-    ex.poles.each do |p|
-      r = recettes_chantier_pole(ex,p)
-      puts "   #{p.libelle}  total recettes = #{number_to_currency(r, unit: "€")}"
-      total_recettes_pole = total_recettes_pole + r
-    end
-    puts "   ==> total des recettes des pôles = #{number_to_currency(total_recettes_pole, unit: "€")}"
-  
+    puts "-------------------------------------------------------"
+    puts "                 APPROCHE GLOBALE                     "
+    puts "-------------------------------------------------------"
+
+    # --  nombre de jours
     nb_projet=nbr_jours_type_chantier(ex)
     
+    # -- recettes
     recettes_charges_type(ex)
     r_fct, r_hp = synthese_recettes_chantiers(ex)
     
 
-    
+    # -- charges
     ch_p, ch_fct, ch_hp=synthese_charges_chantiers(ex)
     
     delta_fct= ch_fct-r_fct
     delta_hp= ch_hp-r_hp
     contrib_fct=delta_fct/nb_projet
     contrib_hp=delta_hp/nb_projet
-    
-    puts "--- CHARGES PAR PÔLE (HORS PERSONNELLES) ---"
-    type_charges_pole(ex, 'projet')
-    type_charges_pole(ex, 'mission')    
-    type_charges_pole(ex, 'fonctionnement')
-    type_charges_pole(ex, 'hors_projet')
 
-  puts "--- CHARGES PERSONNEL PAR POLE"
-    synthese_charges_chantiers_pole(ex)
-
+    puts " ----- TOTAL PAR TYPE DE CHARGE -----"   
     type_charges(ex)
-    
+
     puts " --- CONTRIBUTION FONCTIONNEMENT et HORS_PROJET---"
     puts "La part de la contribution pour le fonctionnement est de #{number_to_currency(delta_fct, unit: "€")}"
     puts "La part de la contribution pour le hors_projet est de #{number_to_currency(delta_hp, unit: "€")}"
@@ -72,6 +54,42 @@ namespace :rapport_activite do
 
     puts ""
     puts "Les charges projet sont passées par conséquent de #{number_to_currency(ch_p, unit: "€")} à #{number_to_currency(ch_p+delta_fct+delta_hp, unit: "€")}"
+
+    puts "-------------------------------------------------------"
+    puts "                 APPROCHE PAR POLE                     "
+    puts "-------------------------------------------------------"
+    
+    
+    puts "--- CHARGES PERSONNEL PAR POLE"
+    synthese_charges_chantiers_pole(ex)
+
+    puts "---- Recettes par PÔLE ---"    
+    total_recettes_pole = 0
+    ex.poles.each do |p|
+      r = recettes_chantier_pole(ex,p)
+      puts "   #{p.libelle}  total recettes = #{number_to_currency(r, unit: "€")}"
+      total_recettes_pole = total_recettes_pole + r
+    end
+    puts "   ==> total des recettes des pôles = #{number_to_currency(total_recettes_pole, unit: "€")}"
+
+    puts "--- Nombre d'ETP par pôle"
+    total_etp =0.0
+    ex.poles.each do |p|
+      puts "   #{p.libelle}, #{ETP[p]} ETP"
+      total_etp = total_etp + ETP[p] if ETP[p]
+    end
+    puts "   ==> total ETP salariés (sans mise à disposition) en #{ex.code} = #{total_etp} "
+
+
+  
+    puts " ---- TYPE DE CHARGE PAR POLE (HORS PERSONNELLES)                  "
+    
+    ex.poles.each do |pole|
+      type_charges_pole(ex, pole)
+    end
+    
+
+    
     #restore values
     ex.contribution_fonct=b_contrib_fct
     ex.contribution_hors_projet=b_contrib_hp
@@ -137,14 +155,16 @@ namespace :rapport_activite do
   end
 
   def synthese_charges_chantiers_pole(ex)  
-    total = 0      
-    etp = 0
+    total = 0.0      
+    total_all = 0.0    
     ex.poles.each do |pole|
       c = charges_chantier_pole(ex, pole)
-      puts "         #{pole.libelle}           : #{number_to_currency(c['PERSONNEL_REELLE']+c['PERSONNEL_MANUELLE'], unit: "€")} "
+      puts "         #{pole.libelle}           : TOTAL des charges = #{number_to_currency(c[:total_reel], unit: "€")} dont #{number_to_currency(c['PERSONNEL_REELLE']+c['PERSONNEL_MANUELLE'], unit: "€")} de personnel"
       total = total + c['PERSONNEL_REELLE']      
+      total_all = total_all + c[:total_reel]
     end
-    puts "         => TOTAL #{number_to_currency(total, unit: "€")} pour #{etp} ETP"
+    puts "         => TOTAL global des charges est de #{number_to_currency(total_all, unit: "€")}, dont #{number_to_currency(total, unit: "€")} de personnel"
+
   end
   def charges_chantier_type(ex, chantier_type)
     cp=ex.chantiers.where(type_chantier: chantier_type).inject({:total_reel => 0.0,"PERSONNEL_REELLE" => 0.0, "PERSONNEL_MANUELLE" => 0.0}) do |sum, c|
@@ -186,14 +206,14 @@ namespace :rapport_activite do
     end
   end
   def type_charges_pole(ex, pole)
-    puts "  [#{pole.upcase}]"
+    puts "  [#{pole.libelle}]"
     t=0.0
     periode_debut=ex.debut
     periode_fin=ex.fin
     ex.type_charges.each do |tf|
       unless tf.nom=="PERSONNEL"
         total_tf=0.0
-        ex.chantiers.where(type_chantier: pole).each do |c|                    
+        ex.chantiers.where(pole: pole).each do |c|                    
           total_tf=total_tf+c.charges.where(type_charge: tf, previ: false).where('periode_debut >= ?', periode_debut).where('periode_debut <= ?', periode_fin).inject(0) do |sum,ch| 
             sum=sum+ch.coupure(ex.debut,ex.fin)
             if ch.coupure(ex.debut,ex.fin)==-Float::INFINITY
@@ -210,8 +230,7 @@ namespace :rapport_activite do
     puts "                ==>Total = #{number_to_currency(t, unit: "€")}"
   end
 
-  def type_charges(ex) 
-  puts " ======= TYPE DE CHARGE ============"   
+  def type_charges(ex)   
     t=0.0
     periode_debut=ex.debut
     periode_fin=ex.fin
