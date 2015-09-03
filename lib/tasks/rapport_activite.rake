@@ -60,7 +60,7 @@ namespace :rapport_activite do
     puts "-------------------------------------------------------"
     
     
-    puts "--- CHARGES PERSONNEL PAR POLE"
+    puts "--- CHARGES PAR POLE"
     synthese_charges_chantiers_pole(ex)
 
     puts "---- Recettes par PÔLE ---"    
@@ -159,8 +159,8 @@ namespace :rapport_activite do
     total_all = 0.0    
     ex.poles.each do |pole|
       c = charges_chantier_pole(ex, pole)
-      puts "         #{pole.libelle}           : TOTAL des charges = #{number_to_currency(c[:total_reel], unit: "€")} dont #{number_to_currency(c['PERSONNEL_REELLE']+c['PERSONNEL_MANUELLE'], unit: "€")} de personnel"
-      total = total + c['PERSONNEL_REELLE']      
+      puts "    #{pole.libelle}           : TOTAL des charges = #{number_to_currency(c[:total_reel], unit: "€")} dont #{number_to_currency(c['PERSONNEL_REELLE'])} de personnel (#{number_to_currency(c['PERSONNEL_MANUELLE'])} mise à disposition)"      
+      total = total + c['PERSONNEL_REELLE']    
       total_all = total_all + c[:total_reel]
     end
     puts "         => TOTAL global des charges est de #{number_to_currency(total_all, unit: "€")}, dont #{number_to_currency(total, unit: "€")} de personnel"
