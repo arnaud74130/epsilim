@@ -38,6 +38,7 @@ class ChantiersController < FinancesController
     @personnes = @exercice.personnes
     @type_charges = @exercice.type_charges
     @type_recettes = @exercice.type_recettes
+    @poles = @exercice.poles
     
   end
 

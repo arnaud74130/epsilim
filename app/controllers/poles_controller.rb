@@ -24,7 +24,7 @@ class PolesController < ApplicationController
   # GET /poles
   # GET /poles.json
   def index
-    @poles = Pole.all
+    @poles = @exercice.poles
   end
 
   # GET /poles/1
