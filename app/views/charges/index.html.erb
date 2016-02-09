@@ -1,6 +1,6 @@
 <%= render "shared/bandeau_new",
  titre: "Charges du chantier #{@chantier.code} de l'exercice: #{@exercice.nom}",
- texte: "Module de gestion des charges....[à compléter]", path: new_exercice_chantier_charge_path(@exercice, @chantier) %>
+ texte: "Module de gestion des charges.", path: new_exercice_chantier_charge_path(@exercice, @chantier) %>
 <div class="container">
   <p id="notice"><%= notice %></p>
   <%= render "shared/periode", path: exercice_chantier_charges_path(@exercice, @chantier) %>

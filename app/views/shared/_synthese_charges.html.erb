@@ -28,7 +28,15 @@
         <% end %>
 
         <% if @chantier.type_chantier=='projet' && col_financeur %>
-          <td><%= number_to_currency(@total_charges[code], unit: "€") %></td>
+
+          <td>
+            <% if code=='PERSONNEL' %>
+                <%= number_to_currency(@total_charges['PERSONNEL_FINANCEUR'], unit: "€") %>
+            <% else %>
+                 <%= number_to_currency(@total_charges[code], unit: "€") %>
+            <% end %>
+          </td>
+
         <% end %>
 
         <% if (current_user.is_direction? || current_user.is_ro?) && col_reelle %>

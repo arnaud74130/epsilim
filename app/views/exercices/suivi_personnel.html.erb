@@ -4,13 +4,25 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
   <%= render "shared/periode", path: suivi_personnel_exercice_path(@exercice) %>
+  <p>
+    Nombre de jours total : <%= number_with_precision(@nbre_jours_autres_chantiers + @nbre_jours_conges + @nbre_jours_hp , precision: 2) %> dont:
+    <ul>
+      <li><%= number_with_precision(@nbre_jours_conges, precision: 2) %> jours de congés</li>
+      <li><%= number_with_precision(@nbre_jours_hp, precision: 2) %> jours d'hors-projet</li>
+      <li><%= number_with_precision(@nbre_jours_autres_chantiers, precision: 2) %> jours d'autres chantiers</li>
+    </ul>
+
+  </p>
   <table class="table table-bordered table-hover">
     <thead>
       <tr class="danger">
         <th>
           Nom</th>
         <th>code chantier</th>
-        <th>Nombre de jours</th>
+        <th>
+          Nombre de jours
+        </th>
+        <th>% par chantier</th>
       </tr>
     </thead>
     <tbody>
@@ -24,6 +36,7 @@
             <% t = t + total %>
             <% end %>
           <th>Nombre de jours (<%= number_with_precision(t, precision: 2) %>)</th>
+          <th></th>
         </tr>
         <% totaux.each do |code, total| %>
           <tr>
@@ -33,6 +46,7 @@
             </td>
             <td><%= number_with_precision(total, precision: 2) %>
             </td>
+            <td><%= number_with_precision((total/t)*100, precision: 2) if t>0%>%</td>
           </tr>
         <% end %>
 

@@ -233,7 +233,12 @@ class Chantier < ActiveRecord::Base
     etat_contrib=self.exercice.total_charges_chantiers_hp_fonct(nom)
     
     # on affecte au prorata des charges la part des contributions
+    if ( etat_contrib[:total]!=0)
     ratio = etat_contrib[self.code] / etat_contrib[:total]
+    else
+      ratio = 0.0
+    end
+
 
     paquet["#{nom.upcase}"] = contrib[:total] * ratio   
     paquet[:total_contribution] = contrib[:total]

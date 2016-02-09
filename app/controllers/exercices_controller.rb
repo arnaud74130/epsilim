@@ -32,11 +32,24 @@ class ExercicesController < ApplicationController
   def suivi_personnel
     @periode_debut, @periode_fin = extraction_periode
     @all_personnes ={}
+    @nbre_jours_autres_chantiers =0
+    @nbre_jours_conges = 0
+    @nbre_jours_hp = 0
     @exercice.personnes.each do |p|
       @all_personnes[p.id] = p.suivi(mois: @periode_debut.month, mois2: @periode_fin.month, annee: @periode_debut.year, annee2: @periode_fin.year)
-      @all_personnes[p.id] = Hash[@all_personnes[p.id].sort_by {|k,v| Chantier.find_by_code(k).numero}.reverse]
+      @all_personnes[p.id].each do |code, total|
+        case code
+          when 'CONGES'
+            @nbre_jours_conges = @nbre_jours_conges + total
+          when 'HORS-PROJET'
+            @nbre_jours_hp =@nbre_jours_hp + total
+          else
+            @nbre_jours_autres_chantiers = @nbre_jours_autres_chantiers + total
+        end
+      end
+      @all_personnes[p.id] = Hash[@all_personnes[p.id].sort_by { |k, v| Chantier.find_by_code(k).numero }.reverse]
     end
-    
+
   end
 
   def cr
@@ -47,28 +60,28 @@ class ExercicesController < ApplicationController
 
   end
 
-  # GET /exercices
-  # GET /exercices.json
+# GET /exercices
+# GET /exercices.json
   def index
     @exercices = Exercice.all
   end
 
-  # GET /exercices/1
-  # GET /exercices/1.json
+# GET /exercices/1
+# GET /exercices/1.json
   def show
   end
 
-  # GET /exercices/new
+# GET /exercices/new
   def new
     @exercice = Exercice.new
   end
 
-  # GET /exercices/1/edit
+# GET /exercices/1/edit
   def edit
   end
 
-  # POST /exercices
-  # POST /exercices.json
+# POST /exercices
+# POST /exercices.json
   def create
     @exercice = Exercice.new(exercice_params)
 
@@ -83,8 +96,8 @@ class ExercicesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /exercices/1
-  # PATCH/PUT /exercices/1.json
+# PATCH/PUT /exercices/1
+# PATCH/PUT /exercices/1.json
   def update
     respond_to do |format|
       if @exercice.update(exercice_params)
@@ -97,8 +110,8 @@ class ExercicesController < ApplicationController
     end
   end
 
-  # DELETE /exercices/1
-  # DELETE /exercices/1.json
+# DELETE /exercices/1
+# DELETE /exercices/1.json
   def destroy
     @exercice.destroy
     respond_to do |format|
@@ -123,12 +136,13 @@ class ExercicesController < ApplicationController
 
     return periode_debut, periode_fin
   end
-  # Use callbacks to share common setup or constraints between actions.
+
+# Use callbacks to share common setup or constraints between actions.
   def set_exercice
     @exercice = Exercice.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+# Never trust parameters from the scary internet, only allow the white list through.
   def exercice_params
     if params[:exercice][:contribution_fonct].present?
       params[:exercice][:contribution_fonct]=params[:exercice][:contribution_fonct].from_money
@@ -140,4 +154,5 @@ class ExercicesController < ApplicationController
 
     params.require(:exercice).permit(:nom, :code, :debut, :fin, :deb_periode, :fin_periode, :contribution_fonct, :contribution_hors_projet, :nb_jours)
   end
+
 end
